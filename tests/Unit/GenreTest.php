@@ -17,6 +17,7 @@ class GenreTest extends TestCase
 
         $genreRetrieved = Genre::find($id);
 
+        $genre->delete();
         $this->assertTrue($genreRetrieved->name == $genreName);
     }
 }

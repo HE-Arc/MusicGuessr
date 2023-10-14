@@ -121,6 +121,8 @@ class ModelRelationsTest extends TestCase
         $user2->delete();
         $song->delete();
         $song2->delete();
+        $artist->delete();
+        $album->delete();
     }
 
     /**

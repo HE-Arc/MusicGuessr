@@ -17,7 +17,7 @@ class SongRequestTest extends TestCase
         $id = $songRequest->id;
 
         $songRequestRetrieved = SongRequest::find($id);
-        $songRequestRetrieved->delete();
+        $songRequest->delete();
         $this->assertTrue($songRequestRetrieved->song_name == "Gods");
     }
 }

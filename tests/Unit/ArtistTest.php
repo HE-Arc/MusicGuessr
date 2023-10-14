@@ -18,6 +18,7 @@ class ArtistTest extends TestCase
 
         $artistRetrieved = Artist::find($id);
 
+        $artist->delete();
         $this->assertTrue($artistRetrieved->name == $name);
     }
 }
