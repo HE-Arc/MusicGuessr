@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Model
 {
@@ -23,4 +24,12 @@ class User extends Model
         'nb_music_found' => 0,
         'music_streak' => 0,
     ];
+
+    /**
+     * The songs that the user found.
+     */
+    public function songs(): belongsToMany
+    {
+        return $this->belongsToMany(Song::class);
+    }
 }
