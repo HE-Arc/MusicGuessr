@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Model
+class Genre extends Model
 {
     /**
      *
@@ -16,20 +16,10 @@ class User extends Model
     public $timestamps = false;
 
     /**
-     *
-     * set default values
-     *
+     * The artists that belong to the genre.
      */
-    protected $attributes = [
-        'nb_music_found' => 0,
-        'music_streak' => 0,
-    ];
-
-    /**
-     * The songs that the user found.
-     */
-    public function songs(): belongsToMany
+    public function artists(): BelongsToMany
     {
-        return $this->belongsToMany(Song::class);
+        return $this->belongsToMany(Artist::class);
     }
 }
