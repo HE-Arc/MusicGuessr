@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('song_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained();
-            $table->foreignId("song_id")->constrained();
+            $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId("song_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

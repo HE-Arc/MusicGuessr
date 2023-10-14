@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('artist_genre', function (Blueprint $table) {
-            $table->foreignId("artist_id")->constrained();
-            $table->foreignId("genre_id")->constrained();
+            $table->foreignId("artist_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId("genre_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->primary(["artist_id", "genre_id"]);
         });
     }
 
