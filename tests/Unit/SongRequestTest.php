@@ -7,9 +7,6 @@ use Tests\TestCase;
 
 class SongRequestTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
     public function testCreateStoreAndRetrieve(): void
     {
 
@@ -17,9 +14,10 @@ class SongRequestTest extends TestCase
         $songRequest->artist_name = "NewJeans";
         $songRequest->song_name= "Gods";
         $songRequest->save();
+        $id = $songRequest->id;
 
-        $songRequestRetrieved = SongRequest::where('artist_name', "NewJeans")->first();
-
+        $songRequestRetrieved = SongRequest::find($id);
+        $songRequestRetrieved->delete();
         $this->assertTrue($songRequestRetrieved->song_name == "Gods");
     }
 }
