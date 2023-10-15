@@ -6,7 +6,6 @@ use App\Models\Album;
 use App\Models\Artist;
 use App\Models\Genre;
 use App\Models\Song;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\LazyCollection;
@@ -18,14 +17,12 @@ class SongSeeder extends Seeder
      */
     public function run(): void
     {
-
-
         LazyCollection::make(function () {
-            $file_path = "seeds/playlist_2010to2022_improved.csv";
+            $file_path = 'seeds/playlist_2010to2022_improved.csv';
             $handle = fopen(public_path($file_path), 'r');
 
             while (($line = fgetcsv($handle, 4096)) !== false) {
-                $dataString = implode(", ", $line);
+                $dataString = implode(', ', $line);
                 $row = explode(';', $dataString);
                 yield $row;
             }
@@ -60,18 +57,14 @@ class SongSeeder extends Seeder
 
                     print_r($row);
                     //if data is null, skip
-                    if(!array_key_exists($index_duration_ms, $row) || $row[$index_duration_ms] == null)
-                    {
+                    if (!array_key_exists($index_duration_ms, $row) || $row[$index_duration_ms] == null) {
                         continue;
                     }
 
                     $artist_id = null;
-                    if(DB::table('artists')->where('spotify_id', $row[$index_artist_id])->exists())
-                    {
+                    if (DB::table('artists')->where('spotify_id', $row[$index_artist_id])->exists()) {
                         $artist_id = DB::table('artists')->where('spotify_id', $row[$index_artist_id])->first()->id;
-                    }
-                    else
-                    {
+                    } else {
                         $artist = new Artist();
                         $artist->spotify_id = $row[$index_artist_id];
                         $artist->name = $row[$index_artist_name];
@@ -82,7 +75,6 @@ class SongSeeder extends Seeder
                             $artist->genres()->attach($genre);
                         }
 
-
                         $artist_id = $artist->id;
                     }
 
@@ -90,20 +82,20 @@ class SongSeeder extends Seeder
                     $album_id = $album->id;
 
                     Song::create([
-                        'year' => $row[$index_year],
-                        'spotify_id' => $row[$index_track_id],
-                        'track_name' => $row[$index_track_name],
+                        'year'             => $row[$index_year],
+                        'spotify_id'       => $row[$index_track_id],
+                        'track_name'       => $row[$index_track_name],
                         'track_popularity' => $row[$index_track_popularity],
-                        'album_id' => $album_id,
-                        'artist_id' => $artist_id,
-                        'duration_ms' => $row[$index_duration_ms],
-                        'loudness' => $row[$index_loudness],
-                        'danceability' => $row[$index_danceability],
-                        'energy' => $row[$index_energy],
-                        'key' => $row[$index_key],
-                        'tempo' => $row[$index_tempo],
-                        'acousticness' => $row[$index_acousticness],
-                        'speechiness' => $row[$index_speechiness],
+                        'album_id'         => $album_id,
+                        'artist_id'        => $artist_id,
+                        'duration_ms'      => $row[$index_duration_ms],
+                        'loudness'         => $row[$index_loudness],
+                        'danceability'     => $row[$index_danceability],
+                        'energy'           => $row[$index_energy],
+                        'key'              => $row[$index_key],
+                        'tempo'            => $row[$index_tempo],
+                        'acousticness'     => $row[$index_acousticness],
+                        'speechiness'      => $row[$index_speechiness],
                     ]);
                 }
             });
@@ -118,6 +110,7 @@ class SongSeeder extends Seeder
         foreach ($array as $key => $value) {
             $array[$key] = trim($value);
         }
+
         return $array;
     }
 }
