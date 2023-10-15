@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Song extends Model
 {
     /**
-     *
-     * indicates to Eloquents that there is no timestamps in the table
+     * indicates to Eloquents that there is no timestamps in the table.
      *
      * @var bool
      */
@@ -39,5 +38,4 @@ class Song extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
 }

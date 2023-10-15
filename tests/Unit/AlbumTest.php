@@ -12,8 +12,8 @@ class AlbumTest extends TestCase
      */
     public function testCreateStoreAndRetrieve(): void
     {
-        $albumName = "Test Album";
-        $album = new Album;
+        $albumName = 'Test Album';
+        $album = new Album();
         $album->name = $albumName;
         $album->save();
         $id = $album->id;

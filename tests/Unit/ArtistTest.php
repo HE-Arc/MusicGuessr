@@ -9,10 +9,10 @@ class ArtistTest extends TestCase
 {
     public function testCreateStoreAndRetrieve(): void
     {
-        $name = "artist_name";
+        $name = 'artist_name';
         $artist = new Artist();
         $artist->name = $name;
-        $artist->spotify_id = "spotify_id";
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
         $id = $artist->id;
 

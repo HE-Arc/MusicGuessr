@@ -16,34 +16,32 @@ class ModelRelationsTest extends TestCase
      */
     public function testArtistGenreRelation(): void
     {
-        $artist = new Artist;
-        $artist->name = "artist_name";
-        $artist->spotify_id = "spotify_id";
+        $artist = new Artist();
+        $artist->name = 'artist_name';
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
         $artistId = $artist->id;
 
-        $artist2 = new Artist;
-        $artist2->name = "artist_name2";
-        $artist2->spotify_id = "spotify_id2";
+        $artist2 = new Artist();
+        $artist2->name = 'artist_name2';
+        $artist2->spotify_id = 'spotify_id2';
         $artist2->save();
         $artist2Id = $artist2->id;
 
-        $genre = new Genre;
-        $genre->name = "Test Genre";
+        $genre = new Genre();
+        $genre->name = 'Test Genre';
         $genre->save();
         $genreId = $genre->id;
 
-        $genre2 = new Genre;
-        $genre2->name = "Test Genre 2";
+        $genre2 = new Genre();
+        $genre2->name = 'Test Genre 2';
         $genre2->save();
         $genre2Id = $genre2->id;
-
 
         $artist->genres()->attach($genreId);
         $artist->genres()->attach($genre2Id);
 
         $artist2->genres()->attach($genreId);
-
 
         $this->assertTrue($artist->genres()->count() == 2);
         $this->assertTrue($artist2->genres()->count() == 1);
@@ -63,29 +61,29 @@ class ModelRelationsTest extends TestCase
      */
     public function testUserSongRelation(): void
     {
-        $user = new User;
-        $user->name = "user_name";
-        $user->password = "password";
+        $user = new User();
+        $user->name = 'user_name';
+        $user->password = 'password';
         $user->save();
 
-        $user2 = new User;
-        $user2->name = "user_name2";
-        $user2->password = "password2";
+        $user2 = new User();
+        $user2->name = 'user_name2';
+        $user2->password = 'password2';
         $user2->save();
 
         $artist = new Artist();
-        $artist->name = "artist_name";
-        $artist->spotify_id = "spotify_id";
+        $artist->name = 'artist_name';
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
 
         $album = new Album();
-        $album->name = "album_name";
+        $album->name = 'album_name';
         $album->save();
 
-        $song = new Song;
-        $song_name = "song_name";
         $song = new Song();
-        $song->spotify_id = "spotify_id";
+        $song_name = 'song_name';
+        $song = new Song();
+        $song->spotify_id = 'spotify_id';
         $song->year = 2020;
         $song->track_name = $song_name;
         $song->track_popularity = 70;
@@ -94,9 +92,9 @@ class ModelRelationsTest extends TestCase
         $song->duration_ms = 1000;
         $song->save();
 
-        $song2 = new Song;
-        $song_name2 = "song_name2";
-        $song2->spotify_id = "spotify_id2";
+        $song2 = new Song();
+        $song_name2 = 'song_name2';
+        $song2->spotify_id = 'spotify_id2';
         $song2->year = 2020;
         $song2->track_name = $song_name2;
         $song2->track_popularity = 70;
@@ -131,18 +129,18 @@ class ModelRelationsTest extends TestCase
     public function testArtistSongRelation(): void
     {
         $artist = new Artist();
-        $artist->name = "artist_name";
-        $artist->spotify_id = "spotify_id";
+        $artist->name = 'artist_name';
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
 
         $album = new Album();
-        $album->name = "album_name";
+        $album->name = 'album_name';
         $album->save();
 
-        $song = new Song;
-        $song_name = "song_name";
         $song = new Song();
-        $song->spotify_id = "spotify_id";
+        $song_name = 'song_name';
+        $song = new Song();
+        $song->spotify_id = 'spotify_id';
         $song->year = 2020;
         $song->track_name = $song_name;
         $song->track_popularity = 70;
@@ -152,7 +150,7 @@ class ModelRelationsTest extends TestCase
         $song->save();
 
         $this->assertTrue($artist->songs()->count() == 1);
-        $this->assertTrue($song->artist()->first()->name == "artist_name");
+        $this->assertTrue($song->artist()->first()->name == 'artist_name');
 
         //delete everything
         $song->delete();
@@ -166,18 +164,18 @@ class ModelRelationsTest extends TestCase
     public function testAlbumSongRelation(): void
     {
         $artist = new Artist();
-        $artist->name = "artist_name";
-        $artist->spotify_id = "spotify_id";
+        $artist->name = 'artist_name';
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
 
         $album = new Album();
-        $album->name = "album_name";
+        $album->name = 'album_name';
         $album->save();
 
-        $song = new Song;
-        $song_name = "song_name";
         $song = new Song();
-        $song->spotify_id = "spotify_id";
+        $song_name = 'song_name';
+        $song = new Song();
+        $song->spotify_id = 'spotify_id';
         $song->year = 2020;
         $song->track_name = $song_name;
         $song->track_popularity = 70;
@@ -187,12 +185,11 @@ class ModelRelationsTest extends TestCase
         $song->save();
 
         $this->assertTrue($album->songs()->count() == 1);
-        $this->assertTrue($song->album()->first()->name == "album_name");
+        $this->assertTrue($song->album()->first()->name == 'album_name');
 
         //delete everything
         $song->delete();
         $artist->delete();
         $album->delete();
     }
-
 }
