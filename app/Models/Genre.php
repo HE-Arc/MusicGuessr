@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Genre extends Model
 {
     /**
-     *
-     * indicates to Eloquents that there is no timestamps in the table
+     * indicates to Eloquents that there is no timestamps in the table.
      *
      * @var bool
      */

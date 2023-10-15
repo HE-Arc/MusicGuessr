@@ -9,8 +9,8 @@ class GenreTest extends TestCase
 {
     public function testCreateStoreAndRetrieve(): void
     {
-        $genreName = "Test Genre";
-        $genre = new Genre;
+        $genreName = 'Test Genre';
+        $genre = new Genre();
         $genre->name = $genreName;
         $genre->save();
         $id = $genre->id;

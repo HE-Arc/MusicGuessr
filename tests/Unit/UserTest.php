@@ -9,10 +9,10 @@ class UserTest extends TestCase
 {
     public function testCreateStoreAndRetrieve(): void
     {
-        $username = "new_user";
+        $username = 'new_user';
         $user = new User();
         $user->name = $username;
-        $user->password= "password_hash";
+        $user->password = 'password_hash';
         $user->save();
         $id = $user->id;
 

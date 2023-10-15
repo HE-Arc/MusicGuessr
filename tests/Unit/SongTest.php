@@ -12,18 +12,17 @@ class SongTest extends TestCase
     public function testCreateStoreAndRetrieve(): void
     {
         $artist = new Artist();
-        $artist->name = "artist_name";
-        $artist->spotify_id = "spotify_id";
+        $artist->name = 'artist_name';
+        $artist->spotify_id = 'spotify_id';
         $artist->save();
 
         $album = new Album();
-        $album->name = "album_name";
+        $album->name = 'album_name';
         $album->save();
 
-
-        $song_name = "song_name";
+        $song_name = 'song_name';
         $song = new Song();
-        $song->spotify_id = "spotify_id";
+        $song->spotify_id = 'spotify_id';
         $song->year = 2020;
         $song->track_name = $song_name;
         $song->track_popularity = 70;

@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SongRequest extends Model
 {
     /**
-     *
-     * indicates to Eloquents that there is no timestamps in the table
+     * indicates to Eloquents that there is no timestamps in the table.
      *
      * @var bool
      */
