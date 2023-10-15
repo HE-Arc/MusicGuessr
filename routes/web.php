@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
