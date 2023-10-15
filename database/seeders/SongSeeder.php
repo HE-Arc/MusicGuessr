@@ -54,8 +54,6 @@ class SongSeeder extends Seeder
                     $index_valence = 19;
                     $index_tempo = 20;
                     $index_duration_ms = 21;
-
-                    print_r($row);
                     //if data is null, skip
                     if (!array_key_exists($index_duration_ms, $row) || $row[$index_duration_ms] == null) {
                         continue;
