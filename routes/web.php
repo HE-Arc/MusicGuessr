@@ -17,8 +17,6 @@ Route::get('/', function () {
     return view('game.index');
 });
 
-
-
 //Resources
 Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
 
