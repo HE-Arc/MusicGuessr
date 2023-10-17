@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('game.index');
 });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 //Resources
 Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
 
