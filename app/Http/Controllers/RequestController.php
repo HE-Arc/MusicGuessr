@@ -12,7 +12,7 @@ class RequestController extends Controller
      */
     public function create()
     {
-        return view('requests');
+        return view('request.create');
     }
 
     /**

@@ -9,14 +9,12 @@ class SongRequestTest extends TestCase
 {
     public function testCreateRequestPageTest(): void
     {
-        $response = $this->get('/');
         $response = $this->get('/song_requests/create');
         $response->assertStatus(200);
     }
 
     public function SendStoreRequestTest(): void
     {
-        $response = $this->get('/');
         $response = $this->post('/song_requests', [
             'song_name'   => 'Song Name',
             'artist_name' => 'Artist Name',

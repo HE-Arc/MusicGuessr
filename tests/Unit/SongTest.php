@@ -39,4 +39,16 @@ class SongTest extends TestCase
 
         $this->assertTrue($retrieved_song->track_name == $song_name);
     }
+
+    public function testSelectAllSongs(): void
+    {
+        $songs = Song::all();
+        $this->assertTrue(count($songs) > 0);
+    }
+
+    public function testSelectSongsBeginningWith(): void
+    {
+        $songs = Song::where('track_name', 'LIKE', 'a%')->get();
+        $this->assertTrue(count($songs) > 0);
+    }
 }
