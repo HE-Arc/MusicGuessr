@@ -25,7 +25,6 @@ Route::get('/test', function () {
     return view('test');
 });
 
-
 //Resources
 Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
 
