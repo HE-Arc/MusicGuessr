@@ -7,8 +7,9 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Concert+One&family=Neonderthaw&family=Satisfy&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -21,8 +22,14 @@
 
 </nav>
 
+<header>
+    <div class="title-container container">
+        <h1 id="main-title" class="neon-text-effect-magenta">MusicGuessr</h1>
+        <span id="subtitle" class="neon-text-effect-cyan">by Maëlys Alessio Simon</span>
+    </div>
+</header>
 <!-- Begin page content -->
-<div class="">
+<div class="container">
     @yield('content')
 </div>
 
