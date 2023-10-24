@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SongController extends Controller
 {
     //AJAX QUERY FUNCTIONS
     public function getSongBeginningWith(Request $request, string $searchString): string
     {
-        $songs = Song::where('track_name', 'LIKE', $searchString.'%')->get();
+        $songs_array = Song::getInfoOnSongBeginningWith($searchString);
         header('Content-Type: application/json');
-
-        return json_encode($songs);
+        return json_encode($songs_array);
     }
 
     public function getCommonPointsBetweenSongs(Request $request): string
