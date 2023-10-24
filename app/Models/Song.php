@@ -121,10 +121,11 @@ class Song extends Model
         foreach ($artist1->genres as $genre1) {
             foreach ($artist2->genres as $genre2) {
                 if ($genre1->id == $genre2->id) {
-                    array_push($commonGenres, ["genre_id:" => $genre1->id, "genre_name" => $genre1->name]);
+                    array_push($commonGenres, ['genre_id:' => $genre1->id, 'genre_name' => $genre1->name]);
                 }
             }
         }
+
         return $commonGenres;
     }
 
@@ -143,6 +144,7 @@ class Song extends Model
             }
             array_push($songs_array, $song_array);
         }
+
         return $songs_array;
     }
 }

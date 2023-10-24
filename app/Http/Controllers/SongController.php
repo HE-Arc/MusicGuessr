@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SongController extends Controller
 {
@@ -13,6 +12,7 @@ class SongController extends Controller
     {
         $songs_array = Song::getInfoOnSongBeginningWith($searchString);
         header('Content-Type: application/json');
+
         return json_encode($songs_array);
     }
 
