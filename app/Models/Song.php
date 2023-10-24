@@ -49,6 +49,11 @@ class Song extends Model
      * - duration_ms: int - 0 if same duration, 1 if answer is longer, -1 if answer is shorter
      * - loudness: int - 0 if same loudness, 1 if answer is louder, -1 if answer is quieter
      * - danceability: int - 0 if same danceability, 1 if answer is more danceable, -1 if answer is less danceable.
+     * - energy: int - 0 if same energy, 1 if answer is more energetic, -1 if answer is less energetic.
+     * - key: int - 0 if same key, 1 if answer is in a higher key, -1 if answer is in a lower key.
+     * - tempo: int - 0 if same tempo, 1 if answer is faster, -1 if answer is slower.
+     * - acousticness: int - 0 if same acousticness, 1 if answer is more acoustic, -1 if answer is less acoustic.
+     * - speechiness: int - 0 if same speechiness, 1 if answer is more speechy, -1 if answer is less speechy.
      */
     public function getComparisonArray(Song $answerSong): array
     {

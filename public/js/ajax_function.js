@@ -7,7 +7,7 @@ function displaySongsBeginningWith()
             document.getElementById("songs_list").innerHTML = this.responseText;
         }
     }
-    HTMLRequest.open("GET", "/get_song_beginning_with/" + search_string, true);
+    HTMLRequest.open("GET", "/song_beginning_with/" + search_string, true);
     HTMLRequest.send();
 }
 
@@ -19,7 +19,7 @@ async function getComparisonWithAnswerSong()
         console.log("Response: " + this.responseText) ;
         document.getElementById("comparison_list").innerHTML = this.responseText;
     }
-    HTMLRequest.open("POST", "/get_comparison_with_answer_song", true);
+    HTMLRequest.open("POST", "/comparison_with_answer_song", true);
     HTMLRequest.setRequestHeader("Content-Type", "application/json");
     HTMLRequest.setRequestHeader("Accept", "application/json");
     HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
