@@ -32,4 +32,18 @@ class GameTest extends TestCase
         $this->assertNotFalse($response->getContent());
         $response->assertStatus(200);
     }
+
+    public function testAjaxStartGame(): void
+    {
+        $response = $this->post('/start_game');
+        $this->assertNotFalse($response->getContent());
+        $response->assertStatus(200);
+    }
+
+    public function testAjaxEndGame(): void
+    {
+        $response = $this->post('/end_game');
+        $this->assertNotFalse($response->getContent());
+        $response->assertStatus(200);
+    }
 }

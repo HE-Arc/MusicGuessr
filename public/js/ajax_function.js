@@ -46,3 +46,30 @@ async function getComparisonWithAnswerSong()
     //     console.log(error);
     // })
 }
+
+function startGame()
+{
+    let HTMLRequest = new XMLHttpRequest();
+    HTMLRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("songs_list").innerHTML = this.responseText;
+        }
+    }
+    HTMLRequest.open("POST", "/start_game/", true);
+    HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    HTMLRequest.send();
+}
+
+function endGame()
+{
+    let HTMLRequest = new XMLHttpRequest();
+    HTMLRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("songs_list").innerHTML = this.responseText;
+        }
+    }
+
+    HTMLRequest.open("POST", "/end_game/", true);
+    HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    HTMLRequest.send();
+}
