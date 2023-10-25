@@ -22,7 +22,9 @@ class RequestController extends Controller
     {
         $songRequest = SongRequest::create($request->only(['song_name', 'artist_name']));
 
-        return view('request.confirmation')->with(['title' => $songRequest->song_name, 'author' => $songRequest->artist_name]);
+        return view('request.confirmation');
+
+        //return redirect()->route('song_requests.create');
     }
 
 
