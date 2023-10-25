@@ -18,7 +18,7 @@ class GameTest extends TestCase
 
     public function testAjaxComparison(): void
     {
-        $response = $this->post('/get_comparison_with_answer_song', [
+        $response = $this->post('/comparison_with_answer_song', [
             'song_id'   => 1,
         ]);
 
@@ -28,7 +28,21 @@ class GameTest extends TestCase
 
     public function testAjaxSongBeginningWith(): void
     {
-        $response = $this->get('/get_song_beginning_with/abc');
+        $response = $this->get('/song_beginning_with/abc');
+        $this->assertNotFalse($response->getContent());
+        $response->assertStatus(200);
+    }
+
+    public function testAjaxStartGame(): void
+    {
+        $response = $this->post('/start_game');
+        $this->assertNotFalse($response->getContent());
+        $response->assertStatus(200);
+    }
+
+    public function testAjaxEndGame(): void
+    {
+        $response = $this->post('/end_game');
         $this->assertNotFalse($response->getContent());
         $response->assertStatus(200);
     }

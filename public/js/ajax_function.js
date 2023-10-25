@@ -7,7 +7,7 @@ function displaySongsBeginningWith()
             document.getElementById("songs_list").innerHTML = this.responseText;
         }
     }
-    HTMLRequest.open("GET", "/get_song_beginning_with/" + search_string, true);
+    HTMLRequest.open("GET", "/song_beginning_with/" + search_string, true);
     HTMLRequest.send();
 }
 
@@ -19,7 +19,7 @@ async function getComparisonWithAnswerSong()
         console.log("Response: " + this.responseText) ;
         document.getElementById("comparison_list").innerHTML = this.responseText;
     }
-    HTMLRequest.open("POST", "/get_comparison_with_answer_song", true);
+    HTMLRequest.open("POST", "/comparison_with_answer_song", true);
     HTMLRequest.setRequestHeader("Content-Type", "application/json");
     HTMLRequest.setRequestHeader("Accept", "application/json");
     HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
@@ -45,4 +45,31 @@ async function getComparisonWithAnswerSong()
     // }).catch(function(error) {
     //     console.log(error);
     // })
+}
+
+function startGame()
+{
+    let HTMLRequest = new XMLHttpRequest();
+    HTMLRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("songs_list").innerHTML = this.responseText;
+        }
+    }
+    HTMLRequest.open("POST", "/start_game/", true);
+    HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    HTMLRequest.send();
+}
+
+function endGame()
+{
+    let HTMLRequest = new XMLHttpRequest();
+    HTMLRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("songs_list").innerHTML = this.responseText;
+        }
+    }
+
+    HTMLRequest.open("POST", "/end_game/", true);
+    HTMLRequest.setRequestHeader("X-CSRF-TOKEN",  document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    HTMLRequest.send();
 }
