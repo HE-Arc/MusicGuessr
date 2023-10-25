@@ -16,6 +16,14 @@
 <input type="text" id="search_string_input"/>
 <button id="search_button" onclick="displaySongsBeginningWith()">Search</button>
 <div id="songs_list"></div>
+<p>click the button to use ajax to display info on new song to guess</p>
+<input type="text" id="search_string_input"/>
+<button id="search_button" onclick="startGame()">Search</button>
+<div id="songs_list"></div>
+<p>click the button to use ajax to display answer to end of game</p>
+<input type="text" id="search_string_input"/>
+<button id="search_button" onclick="endGame()">Search</button>
+<div id="songs_list"></div>
 </body>
 </html>
 <script type="text/javascript" src="{{ URL::asset('js/ajax_function.js')}}"></script>
