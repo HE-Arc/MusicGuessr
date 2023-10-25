@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('game.game');
+});
+
+Route::get('/index', function () {
     return view('game.index');
 });
 

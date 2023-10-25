@@ -1,6 +1,123 @@
-$test-var: #ff0000;
+@import "variables";
 
-.main-title
+/**************************/
+/*****      BASES     *****/
+/**************************/
+
+body {
+    margin: 0;
+    background: $background;
+}
+
+p,
+a,
+span,
+input,
+button,
+li
 {
-    color: $test-var;
+    color: white;
+    font-family: $content-font;
+}
+
+.neon-text-effect-magenta {
+    color: white;
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: $magenta;
+    text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
+
+}
+
+.neon-text-effect-cyan {
+    color: white;
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: $cyan;
+    text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 20px $cyan, 0 0 30px $cyan, 0 0 40px $cyan;
+}
+
+.neon-effect-cyan {
+    background: none;
+    border: 7px solid cyan;
+    outline: 3px solid white;
+    outline-offset: -5px;
+    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 10px $cyan, 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan;
+}
+
+.neon-effect-magenta {
+    background: none;
+    border: 7px solid $magenta;
+    outline: 3px solid white;
+    outline-offset: -5px;
+    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 10px $magenta, 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .title-container {
+        position: relative;
+        display: inline-block;
+
+        #main-title {
+            font-family: $neon-font;
+            font-size: 7.8rem;
+            text-align: center;
+        }
+
+        #subtitle {
+            font-family: $secondary-neon-font;
+            font-size: 1.7rem;
+            position: absolute;
+            right: 15px;
+            bottom: 0;
+        }
+    }
+}
+
+.container,
+.small-container {
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+/**************************/
+/*****      HOME      *****/
+/**************************/
+
+.search-bar-container {
+    .instructions
+    {
+        text-align: center;
+    }
+}
+
+
+
+
+
+/**************************/
+/***** MEDIA QUERIES  *****/
+/**************************/
+@media (min-width: 576px) {
+
+    .container,
+    .small-container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .small-container {
+        max-width: 500px;
+    }
 }
