@@ -24,6 +24,4 @@ class RequestController extends Controller
 
         return view('request.confirmation')->with(['title' => $songRequest->song_name, 'author' => $songRequest->artist_name]);
     }
-
-
 }
