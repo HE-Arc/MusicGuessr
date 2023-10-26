@@ -22,7 +22,13 @@ class RequestController extends Controller
     {
         $songRequest = SongRequest::create($request->only(['song_name', 'artist_name']));
 
+<<<<<<< HEAD
         return view('request.confirmation')->with(['title' => $songRequest->song_name, 'author' => $songRequest->artist_name]);
+=======
+        return view('request.confirmation');
+
+        //return redirect()->route('song_requests.create');
+>>>>>>> 96de868 (Creation of confirmation. Redo layout and basic view of pages, modification of road for adding the confirmation page)
     }
 
 
