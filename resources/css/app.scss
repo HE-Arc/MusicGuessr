@@ -18,6 +18,8 @@ li
 {
     color: white;
     font-family: $content-font;
+    margin: 10px;
+    font-size: 1.4rem;
 }
 
 .neon-text-effect-magenta {
@@ -98,9 +100,6 @@ header {
 }
 
 
-
-
-
 /**************************/
 /***** MEDIA QUERIES  *****/
 /**************************/
@@ -120,4 +119,39 @@ header {
     .small-container {
         max-width: 500px;
     }
+}
+
+
+/**************************/
+/***** SONG REQUESTED *****/
+/**************************/
+
+.requested-song-form-container {
+    width: 100%;
+    text-align: center;
+    padding: 2.5vw;
+}
+.requested-song-form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 2vh;
+    text-align: left;
+}
+.requested-song-form-container input {
+    width: 100%;
+    padding: 1vw;
+    margin-bottom: 4vh;
+    font-size: 1vw;
+    display: inline-block;
+    border-radius: 2vw;
+    color: black;
+}
+.requested-song-form-container button[type="submit"] {
+    float: right;
+    padding: 1vw;
+    font-size: 1vw;
+    border-radius: 2vw;
+    background-color: #f4a2f1;
+    color: #fff;
+    border: none;
 }
