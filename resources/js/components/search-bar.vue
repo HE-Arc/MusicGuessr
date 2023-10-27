@@ -10,7 +10,7 @@ async function getSongs(userInput) {
         songs.value = []
         return
     }
-    const answer = await axios.get('/get_song_beginning_with/' + userInput)
+    const answer = await axios.get('/song_beginning_with/' + userInput)
     if (answer.data.length > 0) {
         songs.value = answer.data
     } else {
@@ -19,7 +19,7 @@ async function getSongs(userInput) {
 }
 
 async function sendProposition(songId) {
-    const answer = await axios.post('/get_comparison_with_answer_song/', {
+    const answer = await axios.post('/comparison_with_answer_song/', {
         song_id: songId
     })
     songs.value = []
@@ -37,7 +37,7 @@ async function sendProposition(songId) {
         <input v-model="userInput" id="search-bar" @input="getSongs(userInput)" class="neon-effect-cyan" type="text"
             placeholder="Taper le nom d'une musique">
         <ul class="propositions-list">
-            <li v-for="song in songs" @click="sendProposition(song.id)">{{ song.track_name }} - {{ song.artist_id }} - {{
+            <li v-for="song in songs" @click="sendProposition(song.id)">"{{ song.track_name }}" de {{ song.artist_name }}, sorti en {{
                 song.year }}</li>
         </ul>
     </div>
