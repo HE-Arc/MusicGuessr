@@ -1,19 +1,19 @@
+@extends('layout.app')
+@section('content')
 
-<!doctype html>
-<html lang="fr">
-<head>
-    <title>Song requests</title>
-    <meta name="description" content="Our first page">
-    <meta name="keywords" content="html tutorial template">
-</head>
-<body>
-<form method="POST" action="/song_requests">
-    @csrf
-    <label for="song">Song</label>
-    <input type="text" name="song_name" id="song">
-    <label for="artist">Artist</label>
-    <input type="text" name="artist_name" id="artist">
-    <input type="submit">
-</form>
-</body>
-</html>
+<div class="requested-song-form-container">
+    <p class="instructions">Proposer une musique :</p>
+    <form method="POST" action="/song_requests">
+        @csrf
+        <input type="text" name="song_name" id="song" placeholder="Titre">
+        <br>
+        <input type="text" name="artist_name" id="artist" placeholder="Artiste">
+        <br>
+        <button type="submit">Proposer</button>
+    </form>
+    <!-- temporary, until navBar -->
+    <a href="/">Retour au jeu</a>
+</div>
+
+@vite(['resources/js/pages/game.js'])
+@endsection

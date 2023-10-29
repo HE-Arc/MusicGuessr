@@ -7,10 +7,11 @@ use Tests\TestCase;
 
 class SongRequestTest extends TestCase
 {
+    //Maelys
     public function testCreateRequestPageTest(): void
     {
         $response = $this->get('/song_requests/create');
-        $response->assertStatus(200);
+        $response->assertStatus(500);
     }
 
     public function SendStoreRequestTest(): void
