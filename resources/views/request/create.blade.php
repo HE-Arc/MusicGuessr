@@ -11,6 +11,8 @@
         <br>
         <button type="submit">Proposer</button>
     </form>
+    <!-- temporary, until navBar -->
+    <a href="/">Retour au jeu</a>
 </div>
 
 @vite(['resources/js/pages/game.js'])
