@@ -9,12 +9,11 @@ class GameTest extends TestCase
     /**
      * A basic feature test example.
      */
-    //Maelys
     public function testAccessIndex(): void
     {
         $response = $this->get('/');
 
-        $response->assertStatus(500);
+        $response->assertStatus(200);
     }
 
     public function testAjaxComparison(): void
