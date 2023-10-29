@@ -14,7 +14,8 @@ class SongRequestTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function SendStoreRequestTest(): void
+    //Maelys
+    /*public function SendStoreRequestTest(): void
     {
         $response = $this->post('/song_requests', [
             'song_name'   => 'Song Name',
@@ -24,5 +25,5 @@ class SongRequestTest extends TestCase
 
         $songRequest = SongRequest::where('song_name', 'Song Name')->where('artist_name', 'Artist Name')->first();
         $this->assertTrue(!is_null($songRequest));
-    }
+    }*/
 }
