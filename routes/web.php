@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('game.game');
 });
 
-Route::get('/index', function () {
-    return view('game.index');
-});
-
 Route::get('/welcome', function () {
     return view('welcome');
 });
