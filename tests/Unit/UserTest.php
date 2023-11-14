@@ -16,7 +16,7 @@ class UserTest extends TestCase
         $user->save();
         $id = $user->id;
 
-        $userRetrieved = User::find($id);
+        $userRetrieved = User::findOrFail($id);
         $user->delete();
         $this->assertTrue($userRetrieved->name == $username);
     }

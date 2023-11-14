@@ -31,7 +31,7 @@ class SongTest extends TestCase
         $song->duration_ms = 1000;
 
         $song->save();
-        $retrieved_song = Song::find($song->id);
+        $retrieved_song = Song::findOrFail($song->id);
 
         $song->delete();
         $artist->delete();

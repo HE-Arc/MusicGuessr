@@ -18,7 +18,7 @@ class AlbumTest extends TestCase
         $album->save();
         $id = $album->id;
 
-        $albumRetrieved = Album::find($id);
+        $albumRetrieved = Album::findOrFail($id);
         $album->delete();
         $this->assertTrue($albumRetrieved->name == $albumName);
     }
