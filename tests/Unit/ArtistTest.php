@@ -16,7 +16,7 @@ class ArtistTest extends TestCase
         $artist->save();
         $id = $artist->id;
 
-        $artistRetrieved = Artist::find($id);
+        $artistRetrieved = Artist::findOrFail($id);
 
         $artist->delete();
         $this->assertTrue($artistRetrieved->name == $name);

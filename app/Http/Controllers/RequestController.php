@@ -20,7 +20,7 @@ class RequestController extends Controller
      */
     public function store(Request $request)
     {
-        $songRequest = SongRequest::create($request->only(['song_name', 'artist_name']));
+        $songRequest = SongRequest::create($request->validated()->only(['song_name', 'artist_name']));
 
         return view('request.confirmation')->with(['title' => $songRequest->song_name, 'author' => $songRequest->artist_name]);
     }
