@@ -43,9 +43,9 @@ class GameController extends Controller
         header('Content-Type: application/json');
         http_response_code(200);
         if ($request->session()->exists('answerSong')) {
-            return json_encode(['is_started' => 'true']);
+            return json_encode(['is_started' => true]);
         } else {
-            return json_encode(['is_started' => 'false']);
+            return json_encode(['is_started' => false]);
         }
     }
 }
