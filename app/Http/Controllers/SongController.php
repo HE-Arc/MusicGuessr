@@ -11,8 +11,9 @@ class SongController extends Controller
     public function getSongBeginningWith(Request $request, string $searchString): string
     {
         $songs_array = Song::getInfoOnSongBeginningWith($searchString);
-        header("Content-Type: application/json");
+        header('Content-Type: application/json');
         http_response_code(200);
+
         return json_encode($songs_array);
     }
 
@@ -25,8 +26,9 @@ class SongController extends Controller
         $answerSong = session('answerSong');
         $song = Song::findOrFail($request->song_id);
         $answer = $song->getComparisonArray($answerSong);
-        header("Content-Type: application/json");
+        header('Content-Type: application/json');
         http_response_code(200);
+
         return json_encode($answer);
     }
 }
