@@ -33,3 +33,4 @@ Route::get('/song_beginning_with/{search_string}', [\App\Http\Controllers\SongCo
 Route::post('/comparison_with_answer_song', [\App\Http\Controllers\SongController::class, 'getCommonPointsBetweenSongs']);
 Route::post('/start_game', [\App\Http\Controllers\GameController::class, 'startGame']);
 Route::post('/end_game', [\App\Http\Controllers\GameController::class, 'endGame']);
+Route::post('/has_game_started', [\App\Http\Controllers\GameController::class, 'hasGameStarted']);

@@ -12,6 +12,7 @@ class SongController extends Controller
     {
         $songs_array = Song::getInfoOnSongBeginningWith($searchString);
         header('Content-Type: application/json');
+        http_response_code(200);
 
         return json_encode($songs_array);
     }
@@ -19,14 +20,14 @@ class SongController extends Controller
     public function getCommonPointsBetweenSongs(Request $request): string
     {
         if (!$request->session()->exists('answerSong')) {
-            return json_encode(['status' => 'error', 'message' => 'No answer song in session.']);
+            return response(json_encode(['message' => 'No answer song in session, start the game and retry.']), 449)->header('Content-Type', 'application/json');
         }
 
         $answerSong = session('answerSong');
         $song = Song::findOrFail($request->song_id);
         $answer = $song->getComparisonArray($answerSong);
-        $answer['status'] = 'success';
         header('Content-Type: application/json');
+        http_response_code(200);
 
         return json_encode($answer);
     }
