@@ -24,20 +24,26 @@ class GameController extends Controller
             'album_length'    => strlen($answerSong->album->name),
             'nb_artist_genre' => $answerSong->artist->genres->count(),
         ];
-
-        header('Content-Type: application/json');
-
+        header("Content-Type: application/json");
+        http_response_code(200);
         return json_encode($answer);
     }
 
     public function endGame(Request $request): string
     {
         $request->session()->forget('answerSong');
+        http_response_code(204);
+        return "";
+    }
 
-        $answer = [
-            'status' => 'success',
-        ];
-
-        return json_encode($answer);
+    public function hasGameStarted(Request $request)
+    {
+        header("Content-Type: application/json");
+        http_response_code(200);
+        if ($request->session()->exists('answerSong')) {
+            return json_encode(['is_started' => 'true']);
+        } else {
+            return json_encode(['is_started' => 'false']);
+        }
     }
 }

@@ -46,4 +46,11 @@ class GameTest extends TestCase
         $this->assertNotFalse($response->getContent());
         $response->assertStatus(200);
     }
+
+    public function testAjaxHasGameStarted(): void
+    {
+        $response = $this->post('/has_game_started');
+        $this->assertNotFalse($response->getContent());
+        $response->assertStatus(200);
+    }
 }
