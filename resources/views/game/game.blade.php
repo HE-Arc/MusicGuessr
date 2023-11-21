@@ -5,6 +5,8 @@
         <search-bar @send-comparaison="sendDeltaToComparaison"></search-bar>
         <h2>Musique à deviner</h2>
         <comparaison :data="deltaToSend"></comparaison>
+        <h2>Propositions précédentes</h2>
+        <history :data="deltaToSend"></history>
     </div>
     <!-- temporary, until navBar -->
     <a href="/song_requests/create">Proposer une musique</a>
