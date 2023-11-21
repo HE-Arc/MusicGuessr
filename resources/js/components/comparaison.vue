@@ -1,15 +1,140 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, toRefs, toRaw } from 'vue';
 import axios from 'axios';
+
+const props = defineProps({
+    data: Object
+})
+const { data } = toRefs(props);
 
 const title = ref('');
 const artist = ref('Artist ?');
+const artistGuessed = ref(false);
+
 const album = ref('Album ?');
+const albumGuessed = ref(false);
+
 const year = ref('Année ?');
+const yearGuessed = ref(false);
+const yearLowerBound = ref(null);
+const yearUpperBound = ref(null);
+
 const genres = ref([]);
+const genreGuessed = ref(false);
+const nbGenresGuessed = ref(0);
+
 const time = ref('Temps ?');
+const timeGuessed = ref(false);
+const timeLowerBound = ref(null);
+const timeUpperBound = ref(null);
+
+function resetFields() {
+    title.value = ''
+    artist.value = 'Artist ?'
+    album.value = 'Album ?'
+    year.value = 'Année ?'
+    genres.value = []
+    time.value = 'Temps ?'
+}
+
+function updateFields(comparisonData) {
+    // this is related to the backend object strucutre
+    // to understand, check Documentation API available at https://github.com/HE-Arc/MusicGuessr/wiki/Documentation-API
+
+    let cp = comparisonData
+
+    // artist
+    if (cp.artist_comparison != null) {
+        artist.value = cp.artist_name
+        artistGuessed.value = true
+    }
+
+    // album
+    if (cp.album_comparison != null) {
+        album.value = cp.album_name
+        albumGuessed.value = true
+    }
+
+    // year
+    if (cp.year_comparison == -1 && (yearUpperBound.value == null || yearUpperBound.value > cp.year)) {
+        yearUpperBound.value = cp.year
+    }
+    else if (cp.year_comparison == 0) {
+        year.value = cp.year
+        yearGuessed.value = true
+    }
+    else if (cp.year_comparison == 1 && (yearLowerBound.value == null || yearLowerBound.value < cp.year)) {
+        yearLowerBound.value = cp.year
+    }
+
+    if (!yearGuessed.value) {
+        if (yearUpperBound.value != null && yearLowerBound.value != null) {
+            year.value = "entre " + yearLowerBound.value + " et " + yearUpperBound.value
+        }
+        else if (yearUpperBound.value != null) {
+            year.value = "avant " + yearUpperBound.value
+        }
+        else if (yearLowerBound.value != null) {
+            year.value = "après " + yearLowerBound.value
+        }
+    }
+
+    // genres
+    if (cp.common_genres.length > 0) {
+        console.log(genres.value)
+        for (let i = 0; i < cp.common_genres.length; i++) {
+            if (!genres.value.includes(cp.common_genres[i].genre_name)) {
+                genres.value[nbGenresGuessed.value] = cp.common_genres[i].genre_name
+                nbGenresGuessed.value += 1
+            }
+        }
+        console.log("nbGenresguessed " + nbGenresGuessed.value)
+        console.log("length tab " + genres.value.length)
+        if (nbGenresGuessed.value == genres.value.length) {
+            genreGuessed.value = true
+        }
+    }
+
+    // time
+    if (cp.duration_ms_comparison == -1 && (timeUpperBound.value == null || timeUpperBound.value > cp.duration_ms)) {
+        timeUpperBound.value = cp.duration_ms
+    }
+    else if (cp.duration_ms_comparison == 0) {
+        time.value = convertMsToMinSec(cp.duration_ms)
+        timeGuessed.value = true
+    }
+    else if (cp.duration_ms_comparison == 1 && (timeLowerBound.value == null || timeLowerBound.value < cp.duration_ms)) {
+        timeLowerBound.value = cp.duration_ms
+    }
+
+    if (!timeGuessed.value) {
+        if (timeUpperBound.value != null && timeLowerBound.value != null) {
+            time.value = "entre " + convertMsToMinSec(timeLowerBound.value) + " et " + convertMsToMinSec(timeUpperBound.value)
+        }
+        else if (timeUpperBound.value != null) {
+            time.value = "moins de " + convertMsToMinSec(timeUpperBound.value)
+        }
+        else if (timeLowerBound.value != null) {
+            time.value = "plus de " + convertMsToMinSec(timeLowerBound.value)
+        }
+    }
+
+    if (cp.isSame) {
+        // TODO end game, you find the sound
+        console.log("GAGNE")
+        title.value = cp.name
+    }
+}
+
+function convertMsToMinSec(timeInMs) {
+    let minutes = Math.floor(timeInMs / 60000)
+    let seconds = ((timeInMs % 60000) / 1000).toFixed(0)
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds
+}
+
 
 async function startGame() {
+    resetFields()
     const answer = await axios.post('/start_game')
 
     // setup default values
@@ -18,53 +143,55 @@ async function startGame() {
     }
     localStorage.setItem('title', title.value)
 
+    leftGenreToGuess.value = answer.data.nb_artist_genre
+    console.log(genres.value)
     for (let i = 0; i < answer.data.nb_artist_genre; i++) {
         genres.value.push("Genre n°" + (i + 1))
-        localStorage.setItem('genres'+i, genres.value[i])
+        localStorage.setItem('genres' + i, genres.value[i])
     }
+    localStorage.setItem('nbGenre', answer.data.nb_artist_genre)
 
     console.log(answer)
 }
 
 function fetchFromLocalStorage() {
     title.value = localStorage.getItem('title')
-    for (let i = 0; i < 5; i++) {
-        genres.value.push(localStorage.getItem('genres'+i))
+    genres.value = []
+    for (let i = 0; i < localStorage.getItem('nbGenre'); i++) {
+        genres.value.push(localStorage.getItem('genres' + i))
     }
 }
 
-async function endGame()
-{
-    const answer = await axios.post('/end_game')
+async function endGame() {
+    await axios.post('/end_game')
+    localStorage.clear()
+    startGame()
 }
 
 async function gameStarted() {
     const answer = await axios.post('/has_game_started')
-    console.log(answer)
-    if (!answer.data.is_started)
-    {
+    if (!answer.data.is_started) {
         startGame()
     }
-    else
-    {
+    else {
         fetchFromLocalStorage()
     }
 }
 gameStarted()
+
+watch(data, (proxyObject) => {
+    updateFields(toRaw(proxyObject))
+});
 </script>
 
 <template>
-    <div class="comparaison-container neon-effect-magenta">
-        <button @click="endGame">Abandonner</button>
+    <div class="comparison-container neon-effect-magenta">
+        <button @click="endGame">Nouveau son</button>
         <h2 class="music-title neon-text-effect-cyan">{{ title }}</h2>
         <div class="criterions">
             <div class="criterion artist">
                 <div class="icon">
-                    <svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M34.4735 34.3949C30.123 34.3949 26.3987 32.8458 23.3006 29.7478C20.2025 26.6497 18.6535 22.9254 18.6535 18.5749C18.6535 14.2244 20.2025 10.5001 23.3006 7.40202C26.3987 4.30394 30.123 2.7549 34.4735 2.7549C38.824 2.7549 42.5483 4.30394 45.6463 7.40202C48.7444 10.5001 50.2935 14.2244 50.2935 18.5749C50.2935 22.9254 48.7444 26.6497 45.6463 29.7478C42.5483 32.8458 38.824 34.3949 34.4735 34.3949ZM2.8335 66.0349V54.9609C2.8335 52.7197 3.41093 50.6591 4.56579 48.7792C5.72064 46.8993 7.25255 45.4662 9.16149 44.4801C13.2483 42.4367 17.4011 40.9035 21.6197 39.8805C25.8384 38.8574 30.123 38.3472 34.4735 38.3499C38.824 38.3499 43.1085 38.8614 47.3272 39.8844C51.5459 40.9074 55.6986 42.4393 59.7854 44.4801C61.697 45.4689 63.2303 46.9032 64.3851 48.7832C65.54 50.6631 66.1161 52.7223 66.1134 54.9609V66.0349H2.8335ZM10.7435 58.1249H58.2035V54.9609C58.2035 54.2358 58.0215 53.5766 57.6577 52.9834C57.2938 52.3901 56.8166 51.9287 56.226 51.5991C52.6665 49.8194 49.074 48.4852 45.4486 47.5967C41.8232 46.7081 38.1648 46.2625 34.4735 46.2599C30.7821 46.2599 27.1238 46.7055 23.4984 47.5967C19.8729 48.4879 16.2805 49.822 12.721 51.5991C12.1277 51.9287 11.6492 52.3901 11.2853 52.9834C10.9215 53.5766 10.7409 54.2358 10.7435 54.9609V58.1249ZM34.4735 26.4849C36.6487 26.4849 38.5115 25.7097 40.0619 24.1593C41.6122 22.609 42.3861 20.7475 42.3835 18.5749C42.3835 16.3996 41.6083 14.5368 40.0579 12.9865C38.5076 11.4361 36.6461 10.6623 34.4735 10.6649C32.2982 10.6649 30.4354 11.4401 28.8851 12.9904C27.3347 14.5408 26.5608 16.4023 26.5635 18.5749C26.5635 20.7501 27.3387 22.6129 28.889 24.1633C30.4394 25.7137 32.3009 26.4875 34.4735 26.4849Z"
-                            fill="#550B5E" />
-                    </svg>
+                    <img :src="artistGuessed ? '/img/artist-icon-on.png' : '/img/artist-icon.png'" alt="Icone d'artiste">
                 </div>
                 <p class="name">
                     {{ artist }}
@@ -72,11 +199,7 @@ gameStarted()
             </div>
             <div class="criterion album">
                 <div class="icon">
-                    <svg width="73" height="73" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M36.5002 50.1875C40.3022 50.1875 43.5345 48.8563 46.197 46.1938C48.8595 43.5313 50.1897 40.3001 50.1877 36.5C50.1877 32.6979 48.8564 29.4656 46.194 26.8032C43.5315 24.1407 40.3002 22.8105 36.5002 22.8125C32.6981 22.8125 29.4658 24.1437 26.8033 26.8062C24.1409 29.4687 22.8106 32.6999 22.8127 36.5C22.8127 40.3021 24.1439 43.5344 26.8064 46.1968C29.4688 48.8593 32.7001 50.1895 36.5002 50.1875ZM36.5002 39.5417C35.6384 39.5417 34.9155 39.2497 34.3315 38.6657C33.7475 38.0817 33.4565 37.3598 33.4585 36.5C33.4585 35.6382 33.7505 34.9153 34.3345 34.3313C34.9185 33.7473 35.6404 33.4563 36.5002 33.4583C37.362 33.4583 38.0849 33.7503 38.6689 34.3343C39.2529 34.9183 39.5439 35.6402 39.5418 36.5C39.5418 37.3618 39.2498 38.0847 38.6658 38.6687C38.0818 39.2527 37.3599 39.5437 36.5002 39.5417ZM36.5002 66.9167C32.2925 66.9167 28.3384 66.1177 24.6377 64.5198C20.937 62.9219 17.7179 60.7553 14.9804 58.0198C12.2429 55.2823 10.0762 52.0632 8.48033 48.3625C6.88447 44.6618 6.08552 40.7076 6.0835 36.5C6.0835 32.2924 6.88244 28.3382 8.48033 24.6375C10.0782 20.9368 12.2449 17.7177 14.9804 14.9802C17.7179 12.2427 20.937 10.076 24.6377 8.48016C28.3384 6.8843 32.2925 6.08536 36.5002 6.08333C40.7078 6.08333 44.662 6.88227 48.3627 8.48016C52.0634 10.0781 55.2825 12.2447 58.02 14.9802C60.7575 17.7177 62.9251 20.9368 64.523 24.6375C66.1209 28.3382 66.9189 32.2924 66.9168 36.5C66.9168 40.7076 66.1179 44.6618 64.52 48.3625C62.9221 52.0632 60.7554 55.2823 58.02 58.0198C55.2825 60.7573 52.0634 62.925 48.3627 64.5229C44.662 66.1208 40.7078 66.9187 36.5002 66.9167ZM36.5002 60.8333C43.2932 60.8333 49.047 58.476 53.7616 53.7615C58.4762 49.0469 60.8335 43.2931 60.8335 36.5C60.8335 29.7069 58.4762 23.9531 53.7616 19.2385C49.047 14.524 43.2932 12.1667 36.5002 12.1667C29.7071 12.1667 23.9533 14.524 19.2387 19.2385C14.5241 23.9531 12.1668 29.7069 12.1668 36.5C12.1668 43.2931 14.5241 49.0469 19.2387 53.7615C23.9533 58.476 29.7071 60.8333 36.5002 60.8333Z"
-                            fill="#550B5E" />
-                    </svg>
+                    <img :src="albumGuessed ? '/img/album-icon-on.png' : '/img/album-icon.png'" alt="Icone d'album">
                 </div>
                 <p class="name">
                     {{ album }}
@@ -84,11 +207,7 @@ gameStarted()
             </div>
             <div class="criterion year">
                 <div class="icon">
-                    <svg width="83" height="83" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M67.0407 10.6316H59.3388V8.06428C59.3388 7.38339 59.0683 6.73039 58.5869 6.24892C58.1054 5.76746 57.4524 5.49698 56.7715 5.49698C56.0906 5.49698 55.4376 5.76746 54.9561 6.24892C54.4747 6.73039 54.2042 7.38339 54.2042 8.06428V10.6316H28.5312V8.06428C28.5312 7.38339 28.2607 6.73039 27.7792 6.24892C27.2978 5.76746 26.6448 5.49698 25.9639 5.49698C25.283 5.49698 24.63 5.76746 24.1485 6.24892C23.6671 6.73039 23.3966 7.38339 23.3966 8.06428V10.6316H15.6947C14.3329 10.6316 13.0269 11.1725 12.0639 12.1355C11.101 13.0984 10.5601 14.4044 10.5601 15.7662V67.1122C10.5601 68.474 11.101 69.78 12.0639 70.7429C13.0269 71.7059 14.3329 72.2468 15.6947 72.2468H67.0407C68.4025 72.2468 69.7085 71.7059 70.6714 70.7429C71.6343 69.78 72.1753 68.474 72.1753 67.1122V15.7662C72.1753 14.4044 71.6343 13.0984 70.6714 12.1355C69.7085 11.1725 68.4025 10.6316 67.0407 10.6316ZM23.3966 15.7662V18.3335C23.3966 19.0144 23.6671 19.6674 24.1485 20.1488C24.63 20.6303 25.283 20.9008 25.9639 20.9008C26.6448 20.9008 27.2978 20.6303 27.7792 20.1488C28.2607 19.6674 28.5312 19.0144 28.5312 18.3335V15.7662H54.2042V18.3335C54.2042 19.0144 54.4747 19.6674 54.9561 20.1488C55.4376 20.6303 56.0906 20.9008 56.7715 20.9008C57.4524 20.9008 58.1054 20.6303 58.5869 20.1488C59.0683 19.6674 59.3388 19.0144 59.3388 18.3335V15.7662H67.0407V26.0354H15.6947V15.7662H23.3966ZM67.0407 67.1122H15.6947V31.17H67.0407V67.1122ZM36.2331 38.8719V59.4103C36.2331 60.0912 35.9626 60.7442 35.4811 61.2257C34.9997 61.7071 34.3467 61.9776 33.6658 61.9776C32.9849 61.9776 32.3319 61.7071 31.8504 61.2257C31.369 60.7442 31.0985 60.0912 31.0985 59.4103V43.0245L29.68 43.7369C29.0706 44.0416 28.3652 44.0918 27.7188 43.8763C27.0724 43.6609 26.5381 43.1975 26.2334 42.5881C25.9287 41.9787 25.8786 41.2732 26.0941 40.6268C26.3095 39.9805 26.7729 39.4462 27.3823 39.1415L32.5169 36.5742C32.9085 36.3782 33.3436 36.2857 33.781 36.3054C34.2184 36.325 34.6435 36.4562 35.0159 36.6865C35.3883 36.9167 35.6957 37.2384 35.9087 37.6209C36.1217 38.0034 36.2334 38.4341 36.2331 38.8719ZM55.2183 48.6437L49.0696 56.843H54.2042C54.8851 56.843 55.5381 57.1135 56.0196 57.595C56.501 58.0764 56.7715 58.7294 56.7715 59.4103C56.7715 60.0912 56.501 60.7442 56.0196 61.2257C55.5381 61.7071 54.8851 61.9776 54.2042 61.9776H43.935C43.4582 61.9776 42.9908 61.8449 42.5853 61.5942C42.1797 61.3435 41.8519 60.9849 41.6387 60.5585C41.4255 60.132 41.3352 59.6546 41.3781 59.1798C41.4209 58.7049 41.5951 58.2514 41.8811 57.8699L51.117 45.5565C51.3271 45.2769 51.4778 44.9572 51.5599 44.6172C51.642 44.2772 51.6538 43.924 51.5944 43.5793C51.5351 43.2345 51.406 42.9056 51.215 42.6126C51.0239 42.3195 50.7751 42.0687 50.4836 41.8753C50.1921 41.6819 49.8642 41.5501 49.52 41.4881C49.1757 41.426 48.8224 41.4349 48.4818 41.5143C48.1411 41.5937 47.8203 41.7418 47.5389 41.9496C47.2576 42.1575 47.0217 42.4206 46.8457 42.7229C46.6821 43.0241 46.4598 43.2896 46.1919 43.5036C45.9241 43.7176 45.6161 43.8757 45.2861 43.9688C44.9561 44.0618 44.6109 44.0877 44.2707 44.0452C43.9305 44.0026 43.6023 43.8923 43.3054 43.7208C43.0086 43.5494 42.7491 43.3202 42.5422 43.0468C42.3353 42.7734 42.1853 42.4613 42.1011 42.129C42.0168 41.7967 41.9999 41.4509 42.0514 41.1119C42.1029 40.773 42.2218 40.4478 42.401 40.1556C43.2491 38.688 44.5576 37.5412 46.1237 36.8928C47.6898 36.2445 49.426 36.1309 51.0632 36.5697C52.7004 37.0084 54.1472 37.975 55.1792 39.3195C56.2113 40.6641 56.7709 42.3115 56.7715 44.0065C56.7769 45.6809 56.2311 47.3104 55.2183 48.6437Z"
-                            fill="#550B5E" />
-                    </svg>
+                    <img :src="yearGuessed ? '/img/year-icon-on.png' : '/img/year-icon.png'" alt="Icone de calendrier">
                 </div>
                 <p class="name">
                     {{ year }}
@@ -96,14 +215,7 @@ gameStarted()
             </div>
             <div class="criterion genres">
                 <div class="icon">
-                    <svg width="67" height="68" viewBox="0 0 67 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M33.3775 66.1395C28.9746 66.1395 24.8369 65.2929 20.9645 63.5996C17.0921 61.9064 13.7236 59.6105 10.8591 56.7119C7.99452 53.8111 5.72729 50.3999 4.05738 46.4785C2.38746 42.557 1.55144 38.367 1.54932 33.9083C1.54932 29.4497 2.38534 25.2596 4.05738 21.3382C5.72942 17.4167 7.99664 14.0056 10.8591 11.1048C13.7236 8.204 17.0921 5.90807 20.9645 4.21701C24.8369 2.52595 28.9746 1.67935 33.3775 1.6772C37.7804 1.6772 41.918 2.5238 45.7905 4.21701C49.6629 5.91022 53.0314 8.20615 55.8959 11.1048C58.7605 14.0056 61.0287 17.4167 62.7008 21.3382C64.3728 25.2596 65.2078 29.4497 65.2057 33.9083C65.2057 38.367 64.3696 42.557 62.6976 46.4785C61.0256 50.3999 58.7583 53.8111 55.8959 56.7119C53.0314 59.6127 49.6629 61.9097 45.7905 63.6029C41.918 65.2961 37.7804 66.1416 33.3775 66.1395ZM33.3775 59.6932C40.4858 59.6932 46.5066 57.1953 51.44 52.1995C56.3733 47.2037 58.84 41.1066 58.84 33.9083C58.84 26.71 56.3733 20.613 51.44 15.6172C46.5066 10.6213 40.4858 8.12343 33.3775 8.12343C26.2692 8.12343 20.2484 10.6213 15.315 15.6172C10.3816 20.613 7.91495 26.71 7.91495 33.9083C7.91495 41.1066 10.3816 47.2037 15.315 52.1995C20.2484 57.1953 26.2692 59.6932 33.3775 59.6932Z"
-                            fill="#550B5E" />
-                        <path
-                            d="M27.0119 53.247C29.6642 53.247 31.9187 52.3069 33.7753 50.4268C35.632 48.5466 36.5603 46.2636 36.5603 43.5777V21.0159H42.9259C43.8277 21.0159 44.5842 20.7065 45.1953 20.0876C45.8064 19.4688 46.1109 18.7038 46.1088 17.7928C46.1088 16.8796 45.8032 16.1135 45.1921 15.4947C44.581 14.8758 43.8256 14.5675 42.9259 14.5697H33.3775C32.4757 14.5697 31.7192 14.8791 31.1081 15.4979C30.497 16.1167 30.1925 16.8817 30.1947 17.7928V35.1976C30.1947 35.1976 28.4828 34.2436 26.7898 34.2436C24.1375 34.2436 22.105 34.8484 20.2484 36.7286C18.3917 38.6087 17.4634 40.8917 17.4634 43.5777C17.4634 46.2636 18.3917 48.5466 20.2484 50.4268C22.105 52.3069 24.3595 53.247 27.0119 53.247Z"
-                            fill="#550B5E" />
-                    </svg>
+                    <img :src="genreGuessed ? '/img/genre-icon-on.png' : '/img/genre-icon.png'" alt="Icone de genre">
                 </div>
                 <ul class="list-genres">
                     <li v-for="genre in genres">{{ genre }}</li>
@@ -111,13 +223,7 @@ gameStarted()
             </div>
             <div class="criterion time">
                 <div class="icon">
-                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M40.15 10.2864C23.7133 10.2864 10.3779 23.6218 10.3779 40.0585C10.3779 56.4952 23.7133 69.8306 40.15 69.8306C56.5867 69.8306 69.9221 56.4952 69.9221 40.0585C69.9221 23.6218 56.5867 10.2864 40.15 10.2864Z"
-                            stroke="#550B5E" stroke-width="6" stroke-miterlimit="10" />
-                        <path d="M40.1504 20.2104V42.5395H55.0364" stroke="#550B5E" stroke-width="6" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
+                    <img :src="timeGuessed ? '/img/time-icon-on.png' : '/img/time-icon.png'" alt="Icone de temps">
                 </div>
                 <p class="name">
                     {{ time }}
@@ -128,7 +234,7 @@ gameStarted()
 </template>
 
 <style lang="scss">
-.comparaison-container {
+.comparison-container {
     border-radius: 40px;
     padding: 20px;
 }
@@ -147,6 +253,11 @@ gameStarted()
     .icon {
         display: flex;
         justify-content: center;
+    }
+
+    .name,
+    li {
+        text-align: center;
     }
 }
 </style>
