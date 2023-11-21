@@ -1,12 +1,12 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia'
 import SearchBar from '../components/search-bar.vue';
 import Comparaison from '../components/comparaison.vue';
 
-const pinia = createPinia();
 const app = createApp({
     data() {
-        deltaToSend: {}
+        return {
+            deltaToSend: {}
+        }
     },
     methods: {
         sendDeltaToComparaison(answerData)
@@ -19,5 +19,4 @@ const app = createApp({
 app.component('search-bar', SearchBar);
 app.component('comparaison', Comparaison);
 
-app.use(pinia)
 app.mount("#app");
