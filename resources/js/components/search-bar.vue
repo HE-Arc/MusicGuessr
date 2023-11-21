@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+//import { useComparaisonStore } from '@/stores/useComparaisonStore';
 
 const text = ref('');
 let songs = ref([]);
+
 
 async function getSongs(userInput) {
     if (userInput.length < 2) {
@@ -22,10 +24,13 @@ async function sendProposition(songId) {
     const answer = await axios.post('/comparison_with_answer_song/', {
         song_id: songId
     })
-    songs.value = []
-    console.log(answer)
-}
+    this.$emit('delta-with-answer-song', answer.data);
 
+    songs.value = [];
+    text.value = "";
+
+    console.log(answer);
+}
 </script>
 
 <template>
@@ -37,8 +42,9 @@ async function sendProposition(songId) {
         <input v-model="userInput" id="search-bar" @input="getSongs(userInput)" class="neon-effect-cyan" type="text"
             placeholder="Taper le nom d'une musique">
         <ul class="propositions-list">
-            <li v-for="song in songs" @click="sendProposition(song.id)">"{{ song.track_name }}" de {{ song.artist_name }}, sorti en {{
-                song.year }}</li>
+            <li v-for="song in songs" @click="sendProposition(song.id)">"{{ song.track_name }}" de {{ song.artist_name }},
+                sorti en {{
+                    song.year }}</li>
         </ul>
     </div>
 </template>
@@ -50,7 +56,7 @@ async function sendProposition(songId) {
 
 #search-icon {
     position: absolute;
-    top: 20px;
+    top: 22px;
     left: 27px;
     width: 20px;
     height: 20px;
