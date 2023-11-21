@@ -14,12 +14,15 @@ a,
 span,
 input,
 button,
-li
+li,
+h2,
+h3,
+h4,
+h5
 {
     color: white;
     font-family: $content-font;
-    margin: 10px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .neon-text-effect-magenta {
@@ -92,7 +95,7 @@ header {
 /*****      HOME      *****/
 /**************************/
 
-.search-bar-container {
+.vue-container {
     .instructions
     {
         text-align: center;
