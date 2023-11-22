@@ -18,11 +18,16 @@ li,
 h2,
 h3,
 h4,
-h5
-{
+h5 {
     color: white;
     font-family: $content-font;
     font-size: 1.2rem;
+}
+h2
+{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 .neon-text-effect-magenta {
@@ -56,10 +61,21 @@ h5
     box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 10px $magenta, 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta;
 }
 
+.rounded {
+    border-radius: 40px;
+}
+
 header {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .header-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
 
     .title-container {
         position: relative;
@@ -96,12 +112,40 @@ header {
 /**************************/
 
 .vue-container {
-    .instructions
-    {
+    margin-top: 20px;
+    .instructions {
         text-align: center;
+        margin-bottom: 15px;
     }
 }
 
+/**************************/
+/*****    SUCCESS     *****/
+/**************************/
+.success-container {
+    margin-bottom: 50px;
+    &.container {
+        max-width: 380px;
+    }
+
+    .music-container {
+        padding: 20px;
+        .music-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .music-artist
+        {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    }
+
+    .spotify-container {
+        border-radius: 17px;
+    }
+}
 
 /**************************/
 /***** MEDIA QUERIES  *****/
@@ -134,12 +178,14 @@ header {
     text-align: center;
     padding: 2.5vw;
 }
+
 .requested-song-form-container label {
     display: block;
     font-weight: bold;
     margin-bottom: 2vh;
     text-align: left;
 }
+
 .requested-song-form-container input {
     width: 100%;
     padding: 1vw;
@@ -149,6 +195,7 @@ header {
     border-radius: 2vw;
     color: black;
 }
+
 .requested-song-form-container button[type="submit"] {
     float: right;
     padding: 1vw;

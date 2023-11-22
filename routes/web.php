@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('game.game');
 });
 
+Route::get('/success', function () {
+    return view('game.success');
+});
+
 Route::get('/welcome', function () {
     return view('welcome');
 });

@@ -10,12 +10,12 @@ const history = ref([]);
 
 watch(data, (proxyObject) => {
     let music = toRaw(proxyObject)
-    history.value.push({
+    history.value.unshift({
         title: music.name,
         artist: music.artist_name,
         album: music.album_name,
         year: music.year,
-        genres: music.common_genres.map(genre => genre.genre_name), // TODO modifier lorsque maelys aura modifié le backend
+        genres: music.artist_genres.map(genre => genre.genre_name),
         time: music.duration_ms,
     })
 });
