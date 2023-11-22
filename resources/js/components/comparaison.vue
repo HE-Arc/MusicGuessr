@@ -123,6 +123,11 @@ function updateFields(comparisonData) {
         // TODO end game, you find the sound
         console.log("GAGNE")
         title.value = cp.name
+
+        // redirect to /success route
+        window.location.href = '/success?title=' + encodeURIComponent(cp.name)
+            + '&artist=' + encodeURIComponent(cp.artist_name)
+            + '&spotify_id=' + encodeURIComponent(cp.spotify_id);
     }
 }
 
@@ -143,8 +148,6 @@ async function startGame() {
     }
     localStorage.setItem('title', title.value)
 
-    leftGenreToGuess.value = answer.data.nb_artist_genre
-    console.log(genres.value)
     for (let i = 0; i < answer.data.nb_artist_genre; i++) {
         genres.value.push("Genre n°" + (i + 1))
         localStorage.setItem('genres' + i, genres.value[i])
@@ -185,57 +188,61 @@ watch(data, (proxyObject) => {
 </script>
 
 <template>
-    <div class="comparison-container neon-effect-magenta">
-        <button @click="endGame">Nouveau son</button>
-        <h2 class="music-title neon-text-effect-cyan">{{ title }}</h2>
-        <div class="criterions">
-            <div class="criterion artist">
-                <div class="icon">
-                    <img :src="artistGuessed ? '/img/artist-icon-on.png' : '/img/artist-icon.png'" alt="Icone d'artiste">
+    <div>
+        <div class="comparison-container neon-effect-magenta rounded">
+            <h2 class="music-title neon-text-effect-cyan">{{ title }}</h2>
+            <div class="criterions">
+                <div class="criterion artist">
+                    <div class="icon">
+                        <img :src="artistGuessed ? '/img/artist-icon-on.png' : '/img/artist-icon.png'"
+                            alt="Icone d'artiste">
+                    </div>
+                    <p class="name">
+                        {{ artist }}
+                    </p>
                 </div>
-                <p class="name">
-                    {{ artist }}
-                </p>
-            </div>
-            <div class="criterion album">
-                <div class="icon">
-                    <img :src="albumGuessed ? '/img/album-icon-on.png' : '/img/album-icon.png'" alt="Icone d'album">
+                <div class="criterion album">
+                    <div class="icon">
+                        <img :src="albumGuessed ? '/img/album-icon-on.png' : '/img/album-icon.png'" alt="Icone d'album">
+                    </div>
+                    <p class="name">
+                        {{ album }}
+                    </p>
                 </div>
-                <p class="name">
-                    {{ album }}
-                </p>
-            </div>
-            <div class="criterion year">
-                <div class="icon">
-                    <img :src="yearGuessed ? '/img/year-icon-on.png' : '/img/year-icon.png'" alt="Icone de calendrier">
+                <div class="criterion year">
+                    <div class="icon">
+                        <img :src="yearGuessed ? '/img/year-icon-on.png' : '/img/year-icon.png'" alt="Icone de calendrier">
+                    </div>
+                    <p class="name">
+                        {{ year }}
+                    </p>
                 </div>
-                <p class="name">
-                    {{ year }}
-                </p>
-            </div>
-            <div class="criterion genres">
-                <div class="icon">
-                    <img :src="genreGuessed ? '/img/genre-icon-on.png' : '/img/genre-icon.png'" alt="Icone de genre">
+                <div class="criterion genres">
+                    <div class="icon">
+                        <img :src="genreGuessed ? '/img/genre-icon-on.png' : '/img/genre-icon.png'" alt="Icone de genre">
+                    </div>
+                    <ul class="list-genres">
+                        <li v-for="genre in genres">{{ genre }}</li>
+                    </ul>
                 </div>
-                <ul class="list-genres">
-                    <li v-for="genre in genres">{{ genre }}</li>
-                </ul>
-            </div>
-            <div class="criterion time">
-                <div class="icon">
-                    <img :src="timeGuessed ? '/img/time-icon-on.png' : '/img/time-icon.png'" alt="Icone de temps">
+                <div class="criterion time">
+                    <div class="icon">
+                        <img :src="timeGuessed ? '/img/time-icon-on.png' : '/img/time-icon.png'" alt="Icone de temps">
+                    </div>
+                    <p class="name">
+                        {{ time }}
+                    </p>
                 </div>
-                <p class="name">
-                    {{ time }}
-                </p>
             </div>
+        </div>
+        <div class="button-container">
+            <button @click="endGame">Nouvelle musique</button>
         </div>
     </div>
 </template>
 
 <style lang="scss">
 .comparison-container {
-    border-radius: 40px;
     padding: 20px;
 }
 
@@ -259,5 +266,11 @@ watch(data, (proxyObject) => {
     li {
         text-align: center;
     }
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 </style>

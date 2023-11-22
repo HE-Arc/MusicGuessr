@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('game.game');
 });
 
+Route::get('/success', function () {
+    return view('game.success')->with([
+        'title' => request('title'),
+        'artist' => request('artist'),
+        'spotify_id' => request('spotify_id'),
+    ]);
+})->name('success');
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
