@@ -64,9 +64,9 @@ class GameTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        self::assertNotNull($response->json("isSame"));
-        self::assertNotNull($response->json("artist_genres"));
-        self::assertNotFalse(count($response->json("artist_genres")) > 0);
+        self::assertNotNull($response->json('isSame'));
+        self::assertNotNull($response->json('artist_genres'));
+        self::assertNotFalse(count($response->json('artist_genres')) > 0);
 
         $response = $this->post('/end_game');
     }

@@ -122,6 +122,7 @@ class Song extends Model
         foreach ($this->artist->genres as $genre) {
             array_push($genres, ['genre_id' => $genre->id, 'genre_name' => $genre->name]);
         }
+
         return $genres;
     }
 
@@ -135,6 +136,7 @@ class Song extends Model
                 }
             }
         }
+
         return $commonGenres;
     }
 
