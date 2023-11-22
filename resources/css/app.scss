@@ -14,9 +14,10 @@ body {
     background-size: 100%;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     z-index: -2;
+    transition: right 0.5s ease-in-out;
 
     .bg-gradient {
         position: fixed;
@@ -141,7 +142,7 @@ header {
     background-color: $background;
     overflow-x: hidden;
     padding-top: 60px;
-    transition: 0.5s;
+    transition: 0.5s ease-in-out;
 
     a {
         padding: 8px 8px 8px 32px;
@@ -159,14 +160,11 @@ header {
     }
 }
 
-#body {
-    transition: margin-right .5s;
-}
-
-.openNavBtn {
+#openNavBtn {
     position: absolute;
     top: 20px;
     right: 20px;
+    transition: opacity .5s ease-in-out;
 
     &:hover {
         cursor: pointer;
