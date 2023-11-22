@@ -102,6 +102,7 @@ class Song extends Model
         $commonPoints['artist_name'] = $this->artist->name;
         $commonPoints['album_name'] = $this->album->name;
         $commonPoints['nb_genres'] = $answerSong->artist->genres->count();
+        $commonPoints['artist_genres'] = $this->getSongGenres();
 
         return $commonPoints;
     }
@@ -115,6 +116,15 @@ class Song extends Model
         return $a < $b ? 1 : -1;
     }
 
+    private function getSongGenres(): array
+    {
+        $genres = [];
+        foreach ($this->artist->genres as $genre) {
+            array_push($genres, ['genre_id' => $genre->id, 'genre_name' => $genre->name]);
+        }
+        return $genres;
+    }
+
     private function getCommonArtistsGenres($artist1, $artist2): array
     {
         $commonGenres = [];
@@ -125,7 +135,6 @@ class Song extends Model
                 }
             }
         }
-
         return $commonGenres;
     }
 
