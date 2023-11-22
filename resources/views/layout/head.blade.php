@@ -834,6 +834,10 @@
 </head>
 
 <body id="body">
-    @yield('body')
+    <div id="bg-bricks">
+        <div class="bg-gradient">
+        </div>
+        @yield('body')
+    </div>
 </body>
 </html>
