@@ -120,11 +120,9 @@ function updateFields(comparisonData) {
     }
 
     if (cp.isSame) {
-        // TODO end game, you find the sound
-        console.log("GAGNE")
         title.value = cp.name
 
-        // redirect to /success route
+        // redirect to /success route TODO is it the right way to do it ?
         window.location.href = '/success?title=' + encodeURIComponent(cp.name)
             + '&artist=' + encodeURIComponent(cp.artist_name)
             + '&spotify_id=' + encodeURIComponent(cp.spotify_id);
@@ -189,6 +187,7 @@ watch(data, (proxyObject) => {
 
 <template>
     <div>
+        <h2>Musique à deviner:</h2>
         <div class="comparison-container neon-effect-magenta rounded">
             <h2 class="music-title neon-text-effect-cyan">{{ title }}</h2>
             <div class="criterions">
@@ -236,6 +235,7 @@ watch(data, (proxyObject) => {
             </div>
         </div>
         <div class="button-container">
+            <!-- TODO Design real button -->
             <button @click="endGame">Nouvelle musique</button>
         </div>
     </div>

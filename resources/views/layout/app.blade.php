@@ -1,7 +1,6 @@
 @extends('layout.head')
 @section('body')
-    @extends('layout.nav')
-
+    @include('layout.nav')
     <header>
         <div class="container header-container">
             <div class="title-container">

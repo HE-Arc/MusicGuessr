@@ -23,6 +23,7 @@ watch(data, (proxyObject) => {
 
 <template>
     <div>
+        <h2 v-show="history.length > 0">Propositions précédentes:</h2>
         <historyItem v-for="item in history" :title="item.title" :artist="item.artist" :album="item.album"
             :year="item.year" :genres="item.genres" :time="item.time"></historyItem>
     </div>

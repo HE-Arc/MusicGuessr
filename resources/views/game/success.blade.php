@@ -1,6 +1,6 @@
 @extends('layout.head')
 @section('body')
-    @extends('layout.nav')
+    @include('layout.nav')
 
     <header>
         <div class="container header-container">
@@ -24,5 +24,6 @@
                 height="352" frameBorder="0" allowfullscreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
+        <!-- TODO add button for guessing a new music -->
     </section>
 @endsection
