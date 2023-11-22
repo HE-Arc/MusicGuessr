@@ -18,8 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('/success', function () {
-    return view('game.success');
-});
+    return view('game.success')->with([
+        'title' => request('title'),
+        'artist' => request('artist'),
+        'spotify_id' => request('spotify_id'),
+    ]);
+})->name('success');
 
 Route::get('/welcome', function () {
     return view('welcome');

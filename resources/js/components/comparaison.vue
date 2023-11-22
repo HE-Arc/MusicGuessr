@@ -123,6 +123,11 @@ function updateFields(comparisonData) {
         // TODO end game, you find the sound
         console.log("GAGNE")
         title.value = cp.name
+
+        // redirect to /success route
+        window.location.href = '/success?title=' + encodeURIComponent(cp.name)
+            + '&artist=' + encodeURIComponent(cp.artist_name)
+            + '&spotify_id=' + encodeURIComponent(cp.spotify_id);
     }
 }
 
@@ -263,8 +268,7 @@ watch(data, (proxyObject) => {
     }
 }
 
-.button-container
-{
+.button-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
