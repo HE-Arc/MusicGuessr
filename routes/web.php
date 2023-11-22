@@ -19,8 +19,8 @@ Route::get('/', function () {
 
 Route::get('/success', function () {
     return view('game.success')->with([
-        'title' => request('title'),
-        'artist' => request('artist'),
+        'title'      => request('title'),
+        'artist'     => request('artist'),
         'spotify_id' => request('spotify_id'),
     ]);
 })->name('success');
