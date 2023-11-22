@@ -53,4 +53,21 @@ class GameTest extends TestCase
         $this->assertNotFalse($response->getContent());
         $response->assertStatus(200);
     }
+
+    public function testComparisonFull(): void
+    {
+        $response = $this->post('/start_game');
+        $response->assertStatus(200);
+
+        $response = $this->post('/comparison_with_answer_song', [
+            'song_id'   => 1,
+        ]);
+        $response->assertStatus(200);
+
+        self::assertNotNull($response->json('isSame'));
+        self::assertNotNull($response->json('artist_genres'));
+        self::assertNotFalse(count($response->json('artist_genres')) > 0);
+
+        $response = $this->post('/end_game');
+    }
 }
