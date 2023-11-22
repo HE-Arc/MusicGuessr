@@ -23,8 +23,8 @@ h5 {
     font-family: $content-font;
     font-size: 1.2rem;
 }
-h2
-{
+
+h2 {
     margin-top: 40px;
     margin-bottom: 20px;
     font-size: 1.5rem;
@@ -106,6 +106,71 @@ header {
     margin-left: auto;
 }
 
+/**************************/
+/*****      NAV       *****/
+/**************************/
+
+.navbar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: $background;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+
+    a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        display: block;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            -webkit-text-stroke: 1px;
+            -webkit-text-stroke-color: $magenta;
+            text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
+        }
+    }
+}
+#body
+{
+    transition: margin-right .5s;
+}
+.openNavBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.icon-burger
+{
+    div
+    {
+        width: 30px;
+        height: 4px;
+        background-color: white;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        transition: all .2s ease-in-out;
+        &:last-child
+        {
+            margin-bottom: 0;
+        }
+    }
+    &:hover div
+    {
+        background: white;
+        border: 1px solid $magenta;
+        box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 10px $magenta, 0 0 10px $magenta;
+    }
+}
 
 /**************************/
 /*****      HOME      *****/
@@ -113,6 +178,7 @@ header {
 
 .vue-container {
     margin-top: 20px;
+
     .instructions {
         text-align: center;
         margin-bottom: 15px;
@@ -124,19 +190,21 @@ header {
 /**************************/
 .success-container {
     margin-bottom: 50px;
+
     &.container {
         max-width: 380px;
     }
 
     .music-container {
         padding: 20px;
+
         .music-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        .music-artist
-        {
+
+        .music-artist {
             text-align: center;
             font-size: 1.5rem;
         }
@@ -144,8 +212,8 @@ header {
 
     .spotify-container {
         border-radius: 17px;
-        .BackgroundColorContainer_backgroundColorContainer__YZSQ7
-        {
+
+        .BackgroundColorContainer_backgroundColorContainer__YZSQ7 {
             background-color: $background;
         }
     }
