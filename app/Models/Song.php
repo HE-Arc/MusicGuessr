@@ -103,6 +103,7 @@ class Song extends Model
         $commonPoints['album_name'] = $this->album->name;
         $commonPoints['nb_genres'] = $answerSong->artist->genres->count();
         $commonPoints['artist_genres'] = $this->getSongGenres();
+        $commonPoints['spotify_id'] = $this->spotify_id;
 
         return $commonPoints;
     }
