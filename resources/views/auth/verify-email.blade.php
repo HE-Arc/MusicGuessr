@@ -1,5 +1,5 @@
 <!-- verify-email.blade.php -->
-@extends('layouts.app')
+@extends('layout.app')
 @section('content')
 
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">

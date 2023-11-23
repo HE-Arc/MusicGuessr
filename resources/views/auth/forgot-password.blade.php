@@ -1,5 +1,5 @@
 <!-- forgot-password.blade.php -->
-@extends('layouts.app')
+@extends('layout.app')
 @section('content')
 
 <div class="neon-effect-magenta p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">

@@ -2,8 +2,24 @@
     <a href="javascript:void(0)" class="closeNavBtn" onclick="closeNav()">&times;</a>
     <a href="/">Jeu</a>
     <a href="/song_requests/create">Proposer une musique</a>
-    <a href="/">Connexion</a>
-    <a href="/">Inscription</a>
+    @if (Route::has('login'))
+            @auth
+                <a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a>
+
+                <a href="#" onclick="document.getElementById('logout-form').submit()">Déconnexion</a>
+
+                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
+                    @csrf
+                </form>
+
+            @else
+                <a href="{{ route('login') }}">Connexion</a>
+
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Inscription</a>
+                @endif
+            @endauth
+        @endif
 </nav>
 
 <span onclick="openNav()" id="openNavBtn">

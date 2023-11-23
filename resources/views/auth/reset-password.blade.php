@@ -1,5 +1,5 @@
 <!-- reset-password.blade.php -->
-@extends('layouts.app')
+@extends('layout.app')
 @section('content')
 
     <form method="POST" action="{{ route('password.store') }}">
