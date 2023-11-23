@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,13 +26,15 @@ Route::get('/success', function () {
     ]);
 })->name('success');
 
-Route::get('/welcome', function () {
-    return view('welcome');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', function () {
+    return view('game.game');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
 
 //Resources
 Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
@@ -42,3 +45,5 @@ Route::post('/comparison_with_answer_song', [\App\Http\Controllers\SongControlle
 Route::post('/start_game', [\App\Http\Controllers\GameController::class, 'startGame']);
 Route::post('/end_game', [\App\Http\Controllers\GameController::class, 'endGame']);
 Route::post('/has_game_started', [\App\Http\Controllers\GameController::class, 'hasGameStarted']);
+
+require __DIR__.'/auth.php';

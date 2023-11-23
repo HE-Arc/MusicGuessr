@@ -1,5 +1,10 @@
 @import "variables";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 /**************************/
 /*****      BASES     *****/
 /**************************/
@@ -73,6 +78,14 @@ h2 {
     outline: 3px solid white;
     outline-offset: -5px;
     box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 10px $cyan, 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan;
+}
+
+.neon-effect-cyan-off {
+    background: none;
+    border: 7px solid cyan;
+    outline: 2px solid rgb(0, 0, 0);
+    outline-offset: -5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .neon-effect-magenta {
@@ -298,3 +311,73 @@ header {
     color: #fff;
     border: none;
 }
+
+/**************************/
+/******* Component  *******/
+/**************************/
+
+.neon-effect-cyan {
+    background: none;
+    border: 7px solid cyan;
+    outline: 3px solid white;
+    outline-offset: -5px;
+    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px cyan, 0 0 10px cyan, 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan;
+}
+
+.neon-effect-magenta {
+    background: none;
+    border: 7px solid magenta;
+    outline: 3px solid white;
+    outline-offset: -5px;
+    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px magenta, 0 0 10px magenta, 0 0 10px magenta, inset 0 0 10px magenta, inset 0 0 10px magenta, inset 0 0 10px magenta;
+}
+
+.rounded-input {
+    border-radius: 20px;
+    padding: 8px 12px;
+    background-color: transparent;
+    color: #ffffff;
+
+    // Style par défaut
+    @extend .neon-effect-cyan-off;
+
+    // Style pour l'état :active
+    &:active {
+        @extend .neon-effect-cyan;
+    }
+
+    // Style pour l'état :focus
+    &:focus {
+        @extend .neon-effect-cyan;
+    }
+
+    // Style pour l'état :hover
+    &:hover {
+        @extend .neon-effect-cyan;
+    }
+}
+
+
+.tamerecestautrechose {
+    position: relative;
+    display: inline-block;
+
+    input {
+        position: relative;
+        z-index: 1;
+        border: 7px solid cyan;
+        border-radius: 20px; /* Ajustez la valeur selon vos préférences */
+        padding: 8px 12px;
+        background: none;
+        color: #4a5568;
+        box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px cyan, 0 0 10px cyan, 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan;
+
+        &:hover,
+        &:focus {
+            border-color: #2779bd;
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
