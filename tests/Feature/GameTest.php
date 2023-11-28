@@ -70,4 +70,20 @@ class GameTest extends TestCase
 
         $response = $this->post('/end_game');
     }
+
+    public function testHint(): void
+    {
+        $response = $this->post('/start_game');
+        $response->assertStatus(200);
+
+        $response = $this->post('/hint', [
+            'index'   => 0,
+        ]);
+        $response->assertStatus(200);
+
+        self::assertNotNull($response->json('index'));
+        self::assertNotNull($response->json('hint'));
+
+        $response = $this->post('/end_game');
+    }
 }
