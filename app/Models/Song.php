@@ -145,6 +145,7 @@ class Song extends Model
     public static function getInfoOnSongBeginningWith($searchString): array
     {
         $songs = DB::table('songs')->join('artists', 'artists.id', '=', 'songs.artist_id')->join('albums', 'albums.id', '=', 'songs.album_id')->select('songs.id', 'songs.spotify_id', 'songs.year', 'songs.track_name', 'songs.track_popularity', 'albums.name as album_name', 'songs.album_id', 'artists.name as artist_name', 'songs.artist_id', 'songs.duration_ms')->where('track_name', 'LIKE', $searchString.'%')->orWhere('artists.name', 'LIKE', $searchString.'%')->get();
+
         return $songs->toArray();
     }
 }
