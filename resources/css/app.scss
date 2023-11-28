@@ -174,9 +174,9 @@ header {
     transition: 0.5s ease-in-out;
 
     a {
-        padding: 8px 8px 8px 32px;
+        padding: 8px 25px;
         text-decoration: none;
-        font-size: 25px;
+        font-size: 1.5rem;
         display: block;
         transition: all .3s ease-in-out;
 
@@ -185,6 +185,10 @@ header {
             -webkit-text-stroke: 1px;
             -webkit-text-stroke-color: $magenta;
             text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
+        }
+        &.closeNavBtn
+        {
+            font-size: 2.5rem;
         }
     }
 }
@@ -199,7 +203,6 @@ header {
         cursor: pointer;
     }
 }
-
 .icon-burger {
     div {
         width: 30px;

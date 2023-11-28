@@ -257,8 +257,7 @@ watch(data, (proxyObject) => {
             </div>
         </div>
         <div class="button-container">
-            <!-- TODO Design real button -->
-            <button @click="newMusic">Nouvelle musique</button>
+            <button @click="newMusic" class="btn btn-cyan">Nouvelle musique</button>
         </div>
     </div>
 </template>
@@ -293,6 +292,6 @@ watch(data, (proxyObject) => {
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 </style>
