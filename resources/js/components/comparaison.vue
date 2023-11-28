@@ -7,6 +7,8 @@ const props = defineProps({
 })
 const { data } = toRefs(props);
 
+const nbTries = ref(0);
+
 const title = ref('');
 const artist = ref('Artist ?');
 const artistGuessed = ref(false);
@@ -29,18 +31,29 @@ const timeLowerBound = ref(null);
 const timeUpperBound = ref(null);
 
 function resetFields() {
+    nbTries.value = 0
     title.value = ''
     artist.value = 'Artist ?'
+    artistGuessed.value = false
     album.value = 'Album ?'
+    albumGuessed.value = false
     year.value = 'Année ?'
+    yearGuessed.value = false
+    yearLowerBound.value = null
+    yearUpperBound.value = null
     genres.value = []
+    genreGuessed.value = false
+    nbGenresGuessed.value = 0
     time.value = 'Temps ?'
+    timeGuessed.value = false
+    timeLowerBound.value = null
+    timeUpperBound.value = null
 }
 
 function updateFields(comparisonData) {
     // this is related to the backend object strucutre
     // to understand, check Documentation API available at https://github.com/HE-Arc/MusicGuessr/wiki/Documentation-API
-
+    nbTries.value+=1 // TODO take it from backend where Maelys will put it
     let cp = comparisonData
 
     // artist
@@ -127,7 +140,8 @@ function updateFields(comparisonData) {
         // redirect to /success route TODO is it the right way to do it ?
         window.location.href = '/success?title=' + encodeURIComponent(cp.name)
             + '&artist=' + encodeURIComponent(cp.artist_name)
-            + '&spotify_id=' + encodeURIComponent(cp.spotify_id);
+            + '&spotify_id=' + encodeURIComponent(cp.spotify_id)
+            + '&nb_tries=' + nbTries.value;
     }
 }
 

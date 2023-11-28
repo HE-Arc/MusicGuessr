@@ -22,6 +22,7 @@ Route::get('/success', function () {
         'title'      => request('title'),
         'artist'     => request('artist'),
         'spotify_id' => request('spotify_id'),
+        'nb_tries'   => request('nb_tries'),
     ]);
 })->name('success');
 
