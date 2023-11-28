@@ -13,17 +13,21 @@
 
     <section class="container success-container">
         <h2>Bravo, le titre était:</h2>
+        <h3></h3>
         <div class="music-container neon-effect-magenta rounded">
             <h3 class="music-title neon-text-effect-cyan">{{ $title }}</h3>
             <p class="music-artist">{{ $artist }}</p>
         </div>
-        <h2>Ecouter un extrait:</h2>
+        <p class="nb-tries">Vous l'avez trouvé en {{ $nb_tries }} essais!</p>
+        <h2>Ecouter:</h2>
         <div class="spotify-container neon-effect-magenta">
             <iframe style="border-radius:12px"
                 src="https://open.spotify.com/embed/track/{{ $spotify_id }}" width="100%"
                 height="352" frameBorder="0" allowfullscreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
-        <!-- TODO add button for guessing a new music -->
+        <div class="button-container">
+            <a href="/" class="btn btn-cyan">Rejouer</a>
+        </div>
     </section>
 @endsection
