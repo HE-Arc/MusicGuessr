@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class Song extends Model
 {
@@ -143,20 +144,8 @@ class Song extends Model
 
     public static function getInfoOnSongBeginningWith($searchString): array
     {
-        $songs = Song::where('track_name', 'LIKE', $searchString.'%')->get();
-        $songs_array = [];
-        foreach ($songs as $song) {
-            $song_array = $song->toArray();
-            $song_array['artist_name'] = $song->artist->name;
-            $song_array['album_name'] = $song->album->name;
-            $genres = $song->artist->genres;
-            $song_array['artist_genres'] = [];
-            foreach ($genres as $genre) {
-                array_push($song_array['artist_genres'], ['genre_id' => $genre->id, 'genre_name' => $genre->name]);
-            }
-            array_push($songs_array, $song_array);
-        }
+        $songs = DB::table('songs')->join('artists', 'artists.id', '=', 'songs.artist_id')->join('albums', 'albums.id', '=', 'songs.album_id')->select('songs.id', 'songs.spotify_id', 'songs.year', 'songs.track_name', 'songs.track_popularity', 'albums.name as album_name', 'songs.album_id', 'artists.name as artist_name', 'songs.artist_id', 'songs.duration_ms')->where('track_name', 'LIKE', $searchString.'%')->orWhere('artists.name', 'LIKE', $searchString.'%')->get();
 
-        return $songs_array;
+        return $songs->toArray();
     }
 }
