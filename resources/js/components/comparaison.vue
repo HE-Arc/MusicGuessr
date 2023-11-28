@@ -122,6 +122,8 @@ function updateFields(comparisonData) {
     if (cp.isSame) {
         title.value = cp.name
 
+        endGame()
+
         // redirect to /success route TODO is it the right way to do it ?
         window.location.href = '/success?title=' + encodeURIComponent(cp.name)
             + '&artist=' + encodeURIComponent(cp.artist_name)
@@ -166,11 +168,17 @@ function fetchFromLocalStorage() {
 async function endGame() {
     await axios.post('/end_game')
     localStorage.clear()
+}
+
+function newMusic()
+{
+    endGame()
     startGame()
 }
 
 async function gameStarted() {
     const answer = await axios.post('/has_game_started')
+    console.log(answer)
     if (!answer.data.is_started) {
         startGame()
     }
@@ -236,7 +244,7 @@ watch(data, (proxyObject) => {
         </div>
         <div class="button-container">
             <!-- TODO Design real button -->
-            <button @click="endGame">Nouvelle musique</button>
+            <button @click="newMusic">Nouvelle musique</button>
         </div>
     </div>
 </template>
