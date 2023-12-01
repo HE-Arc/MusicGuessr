@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +25,6 @@ Route::get('/success', function () {
     ]);
 })->name('success');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -39,7 +36,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 });
-
 
 //Resources
 Route::resource('song_requests', \App\Http\Controllers\RequestController::class)->only(['create', 'store']);
