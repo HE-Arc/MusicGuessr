@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -26,12 +26,16 @@ Route::get('/success', function () {
     ]);
 })->name('success');
 
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/login', function () {
+    return view('auth.login');
 });
 
-Route::get('/test', function () {
-    return view('test');
+Route::get('/register', function () {
+    return view('auth.register');
 });
 
 //Resources
@@ -44,3 +48,5 @@ Route::post('/start_game', [\App\Http\Controllers\GameController::class, 'startG
 Route::post('/end_game', [\App\Http\Controllers\GameController::class, 'endGame']);
 Route::post('/has_game_started', [\App\Http\Controllers\GameController::class, 'hasGameStarted']);
 Route::post('/hint', [\App\Http\Controllers\SongController::class, 'getLetterAtIndexInAnswer']);
+
+require __DIR__.'/auth.php';

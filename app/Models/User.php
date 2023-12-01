@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Foundation\Auth\User as AuthenticatableUser;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends AuthenticatableUser implements Authenticatable
 {
+    use HasFactory;
+    use Notifiable;
     /**
      * indicates to Eloquents that there is no timestamps in the table.
      *
@@ -23,9 +28,23 @@ class User extends Model
     ];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    public function findForPassport($username)
+    {
+        return $this->where('email', $username)->first();
+    }
+
+    /**
      * The songs that the user found.
      */
-    public function songs(): belongsToMany
+    public function songs(): BelongsToMany
     {
         return $this->belongsToMany(Song::class);
     }

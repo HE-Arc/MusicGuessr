@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('content')
+
     <div class="vue-container" id="app">
         <p class="instructions">Commence par taper le titre d'une musique pour découvrir des indices:</p>
         <search-bar @send-comparaison="sendDeltaToComparaison"></search-bar>

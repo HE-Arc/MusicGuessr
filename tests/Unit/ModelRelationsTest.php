@@ -64,11 +64,13 @@ class ModelRelationsTest extends TestCase
         $user = new User();
         $user->name = 'user_name';
         $user->password = 'password';
+        $user->email = 'user1@mail';
         $user->save();
 
         $user2 = new User();
         $user2->name = 'user_name2';
         $user2->password = 'password2';
+        $user2->email = 'user2@mail';
         $user2->save();
 
         $artist = new Artist();

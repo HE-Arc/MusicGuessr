@@ -13,6 +13,7 @@ class UserTest extends TestCase
         $user = new User();
         $user->name = $username;
         $user->password = 'password_hash';
+        $user->email = 'user@email';
         $user->save();
         $id = $user->id;
 
