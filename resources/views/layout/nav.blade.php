@@ -33,7 +33,6 @@
 <script>
     function openNav() {
         document.getElementById("sideBarNav").style.width = "250px";
-        document.getElementById("bg-bricks").style.right = "250px";
         let openNavBtn = document.getElementById("openNavBtn");
         openNavBtn.style.opacity = "0";
         openNavBtn.style.cursor = "default";
@@ -41,7 +40,6 @@
 
     function closeNav() {
         document.getElementById("sideBarNav").style.width = "0";
-        document.getElementById("bg-bricks").style.right = "0";
         let openNavBtn = document.getElementById("openNavBtn");
         openNavBtn.style.opacity = "1";
         openNavBtn.style.cursor = "pointer";

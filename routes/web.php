@@ -22,6 +22,7 @@ Route::get('/success', function () {
         'title'      => request('title'),
         'artist'     => request('artist'),
         'spotify_id' => request('spotify_id'),
+        'nb_tries'   => request('nb_tries'),
     ]);
 })->name('success');
 
@@ -46,5 +47,6 @@ Route::post('/comparison_with_answer_song', [\App\Http\Controllers\SongControlle
 Route::post('/start_game', [\App\Http\Controllers\GameController::class, 'startGame']);
 Route::post('/end_game', [\App\Http\Controllers\GameController::class, 'endGame']);
 Route::post('/has_game_started', [\App\Http\Controllers\GameController::class, 'hasGameStarted']);
+Route::post('/hint', [\App\Http\Controllers\SongController::class, 'getLetterAtIndexInAnswer']);
 
 require __DIR__.'/auth.php';
