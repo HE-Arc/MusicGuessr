@@ -105,10 +105,10 @@ class ModelRelationsTest extends TestCase
         $song2->duration_ms = 1000;
         $song2->save();
 
-        $user->songs()->attach($song->id);
-        $user->songs()->attach($song2->id);
+        $user->songs()->attach($song->id, ['nb_tries' => 1]);
+        $user->songs()->attach($song2->id, ['nb_tries' => 2]);
 
-        $user2->songs()->attach($song->id);
+        $user2->songs()->attach($song->id, ['nb_tries' => 1]);
 
         $this->assertTrue($user->songs()->count() == 2);
         $this->assertTrue($user2->songs()->count() == 1);
