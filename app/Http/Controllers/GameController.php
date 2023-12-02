@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -18,7 +19,6 @@ class GameController extends Controller
         $answerSong = Song::where('track_popularity', '>', 70)->inRandomOrder()->first();
         $request->session()->put('answerSong', $answerSong);
         $answer = [
-            'status'          => 'success',
             'title_length'    => strlen($answerSong->track_name),
             'artist_length'   => strlen($answerSong->artist->name),
             'album_length'    => strlen($answerSong->album->name),
@@ -33,6 +33,11 @@ class GameController extends Controller
     public function endGame(Request $request): string
     {
         $request->session()->forget('answerSong');
+        if(Auth::check()) {
+            $authUser = Auth::user();
+            $authUser->music_streak = 0;
+            $authUser->save();
+        }
         http_response_code(204);
 
         return '';
