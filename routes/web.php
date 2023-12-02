@@ -26,9 +26,7 @@ Route::get('/success', function () {
     ]);
 })->name('success');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/login', function () {
     return view('auth.login');

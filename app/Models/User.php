@@ -23,7 +23,6 @@ class User extends AuthenticatableUser implements Authenticatable
      * set default values.
      */
     protected $attributes = [
-        'nb_music_found' => 0,
         'music_streak'   => 0,
     ];
 
@@ -46,6 +45,6 @@ class User extends AuthenticatableUser implements Authenticatable
      */
     public function songs(): BelongsToMany
     {
-        return $this->belongsToMany(Song::class);
+        return $this->belongsToMany(Song::class)->withPivot('nb_tries');
     }
 }
