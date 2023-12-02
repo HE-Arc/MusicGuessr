@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -28,12 +26,13 @@ class UserController extends Controller
         $nb_music_found = $registered_user->songs()->get()->count();
         error_log($tries);
         $user_stats = [
-            'nb_music_found' => $nb_music_found,
+            'nb_music_found'   => $nb_music_found,
             'nb_tries'         => $tries,
-            'music_streak'   => $registered_user->music_streak,
-            'average_tries'    => $nb_music_found != 0 ? $tries/$nb_music_found : 0,
-            'found_songs'    => json_encode($found_songs_arr),
-            ];
+            'music_streak'     => $registered_user->music_streak,
+            'average_tries'    => $nb_music_found != 0 ? $tries / $nb_music_found : 0,
+            'found_songs'      => json_encode($found_songs_arr),
+        ];
+
         return view('dashboard', ['user_stats' => $user_stats]);
     }
 }

@@ -33,7 +33,7 @@ class GameController extends Controller
     public function endGame(Request $request): string
     {
         $request->session()->forget('answerSong');
-        if(Auth::check()) {
+        if (Auth::check()) {
             $authUser = Auth::user();
             $authUser->music_streak = 0;
             $authUser->save();

@@ -28,9 +28,9 @@ class SongController extends Controller
         $song = Song::findOrFail($request->song_id);
         $answer = $song->getComparisonArray($answerSong);
 
-        if($answer['isSame'] === true) {
+        if ($answer['isSame'] === true) {
             $request->session()->forget('answerSong');
-            if(Auth::check()) {
+            if (Auth::check()) {
                 $authUser = Auth::user();
                 $authUser->music_streak++;
                 $authUser->songs()->attach($song->id, ['nb_tries' => $request->nb_tries]);
