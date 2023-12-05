@@ -86,4 +86,26 @@ class GameTest extends TestCase
 
         $response = $this->post('/end_game');
     }
+
+    public function testNbTries(): void
+    {
+        $response = $this->post('/start_game');
+        $response->assertStatus(200);
+
+        $response = $this->post('/nb_tries');
+        $response->assertStatus(200);
+
+        self::assertNotNull($response->json('nb_tries'));
+
+        $response = $this->post('/comparison_with_answer_song', [
+            'song_id'   => 1,
+        ]);
+
+        $response = $this->post('/nb_tries');
+        $response->assertStatus(200);
+
+        self::assertEquals(1, $response->json('nb_tries'));
+
+        $response = $this->post('/end_game');
+    }
 }
