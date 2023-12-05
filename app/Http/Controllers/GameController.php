@@ -18,6 +18,7 @@ class GameController extends Controller
     {
         $answerSong = Song::where('track_popularity', '>', 70)->inRandomOrder()->first();
         $request->session()->put('answerSong', $answerSong);
+        $request->session()->put('nb_tries', 0);
         $answer = [
             'title_length'    => strlen($answerSong->track_name),
             'artist_length'   => strlen($answerSong->artist->name),
@@ -51,6 +52,17 @@ class GameController extends Controller
             return json_encode(['is_started' => true]);
         } else {
             return json_encode(['is_started' => false]);
+        }
+    }
+
+    public function getNbTries(Request $request)
+    {
+        header('Content-Type: application/json');
+        http_response_code(200);
+        if ($request->session()->exists('nb_tries')) {
+            return json_encode(['nb_tries' => $request->session()->get('nb_tries')]);
+        } else {
+            return json_encode(['nb_tries' => 0]);
         }
     }
 }
