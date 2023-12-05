@@ -46,5 +46,6 @@ Route::post('/start_game', [\App\Http\Controllers\GameController::class, 'startG
 Route::post('/end_game', [\App\Http\Controllers\GameController::class, 'endGame']);
 Route::post('/has_game_started', [\App\Http\Controllers\GameController::class, 'hasGameStarted']);
 Route::post('/hint', [\App\Http\Controllers\SongController::class, 'getLetterAtIndexInAnswer']);
+Route::post('/nb_tries', [\App\Http\Controllers\GameController::class, 'getNbTries']);
 
 require __DIR__.'/auth.php';
