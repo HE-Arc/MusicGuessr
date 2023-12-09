@@ -79,8 +79,7 @@ class SongSeeder extends Seeder
                     $album = Album::firstOrCreate(['name' => $row[$index_album]]);
                     $album_id = $album->id;
 
-                    if(!Song::where('spotify_id', $row[$index_track_id])->exists())
-                    {
+                    if (!Song::where('spotify_id', $row[$index_track_id])->exists()) {
                         Song::create([
                             'year'             => $row[$index_year],
                             'spotify_id'       => $row[$index_track_id],
