@@ -1,27 +1,65 @@
-Pour lançer le site en développement:
+# MusicGuessr
+## Description
+Musicguessr is a website hosting a quizz game where the objective is to guess the title of a song.  
+The game is based on a trial and error system, where the player has to guess the title of the song by trying different
+titles, and getting information about the similarity between the title he entered and the right answer.  
+The songs are song from the officials spotify playlists containing the top 100 songs streamed in the world each year.  
+The dataset used is available [here](https://www.kaggle.com/datasets/josephinelsy/spotify-top-hit-playlist-2010-2022).
+A demo of the game is available [here](https://musicguessr.k8s.ing.he-arc.ch/).
+## Development environment
+### Install development tools
+- Install [composer](https://getcomposer.org/download/)
+- Install [npm](https://www.npmjs.com/get-npm)
+- Install [xampp](https://www.apachefriends.org/fr/index.html)
+- 
+### Clone the repository
+for SSH
+```bash
+git clone git@github.com:HE-Arc/MusicGuessr.git
+```
+for HTTPS
+```bash
+git clone https://github.com/HE-Arc/MusicGuessr.git
+```
 
-php artisan serve
-
-# Erreur 1
-En cas d'erreur de type:
-
-Warning: require(/home/laravel/project/MusicGuessr/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/laravel/project/MusicGuessr/public/index.php on line 34
-
-Fatal error: Uncaught Error: Failed opening required '/home/laravel/project/MusicGuessr/public/../vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /home/laravel/project/MusicGuessr/public/index.php:34 Stack trace: #0 {main} thrown in /home/laravel/project/MusicGuessr/public/index.php on line 34
-
-lançer la commande
-
-composer install
-
-# Erreur 2
-
-Si le site affiche une erreur 500, copier le fichier .env.example et nommer la copie .env.
-Ensuite, lançer:
-
+### Configure the environment
+- Copy the `.env.example` file and rename it `.env`
+- Generate a key for the application
+```bash
 php artisan key:generate
+```
+- Create a database and configure the `.env` file with the database credentials
+- Run the migrations
+```bash
+php artisan migrate
+```
+- Run the seeders
+```bash
+php artisan db:seed
+```
+- Install the dependencies
+```bash
+composer install
+npm install
+```
+- Compile the assets
+```bash
+npm run dev
+```
 
-Puis relançer le serveur:
-
+### Run the application
+- Start the apache and mysql services in xampp
+- Start the application
+```bash
 php artisan serve
+```
+- Go to [localhost:8000](http://localhost:8000)
+- Enjoy the game !
+- To stop the application, press `Ctrl + C` in the terminal
+- To stop the apache and mysql services, press `Stop` in xampp
 
-Ca a fonctionné chez moi x) (Par Maëlys)
+### Run the tests
+- Run the tests
+```bash
+php artisan test
+```
