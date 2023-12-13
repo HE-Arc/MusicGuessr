@@ -8,10 +8,11 @@ The dataset used is available [here](https://www.kaggle.com/datasets/josephinels
 A demo of the game is available [here](https://musicguessr.k8s.ing.he-arc.ch/).
 ## Development environment
 ### Install development tools
-- Install [composer](https://getcomposer.org/download/)
-- Install [npm](https://www.npmjs.com/get-npm)
 - Install [xampp](https://www.apachefriends.org/fr/index.html)
-- 
+- Install [composer](https://getcomposer.org/download/) When asked for the command-line PHP, use the one in xampp (`C:\xampp\php\php.exe` by default), and add it to your PATH (check the box)
+- Install [npm](https://www.npmjs.com/get-npm)
+
+
 ### Clone the repository
 for SSH
 ```bash
@@ -23,11 +24,17 @@ git clone https://github.com/HE-Arc/MusicGuessr.git
 ```
 
 ### Configure the environment
+- Install the dependencies
+```bash
+composer install
+npm install
+```
 - Copy the `.env.example` file and rename it `.env`
 - Generate a key for the application
 ```bash
 php artisan key:generate
 ```
+- Start the apache and mysql services in xampp
 - Create a database and configure the `.env` file with the database credentials
 - Run the migrations
 ```bash
@@ -36,11 +43,6 @@ php artisan migrate
 - Run the seeders
 ```bash
 php artisan db:seed
-```
-- Install the dependencies
-```bash
-composer install
-npm install
 ```
 - Compile the assets
 ```bash
