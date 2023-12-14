@@ -10,6 +10,7 @@ const { data } = toRefs(props);
 const emit = defineEmits(['clear-history'])
 
 const title = ref('');
+const indexAlreadyHinted = ref([]);
 
 const artist = ref({
     label: 'Artist ?',
@@ -151,7 +152,28 @@ function updateFields(comparisonData) {
     }
     else
     {
-        // TODO add clue
+        // add a clue
+        addClueToTitle()
+    }
+}
+
+async function addClueToTitle() {
+    // get random index of title
+    let index = Math.floor(Math.random() * title.value.length)
+
+    while (indexAlreadyHinted.value.includes(index)) {
+        index = Math.floor(Math.random() * title.value.length)
+    }
+    indexAlreadyHinted.value.push(index)
+
+    const answer = await axios.post('/hint', {
+        index: index
+    })
+
+    console.log(answer)
+
+    if (answer.status == 200) {
+        title.value = title.value.substring(0, index) + answer.data.hint + title.value.substring(index + 1)
     }
     saveFieldsInLocalStorage()
 }
