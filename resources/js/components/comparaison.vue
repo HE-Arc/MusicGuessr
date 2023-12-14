@@ -9,8 +9,6 @@ const { data } = toRefs(props);
 
 const emit = defineEmits(['clear-history'])
 
-const nbTries = ref(0);
-
 const title = ref('');
 
 const artist = ref({
@@ -44,7 +42,6 @@ const time = ref({
 });
 
 function resetFields() {
-    nbTries.value = 0
     title.value = ''
 
     artist.value.label = 'Artist ?'
@@ -71,7 +68,6 @@ function resetFields() {
 function updateFields(comparisonData) {
     // this is related to the backend object strucutre
     // to understand, check Documentation API available at https://github.com/HE-Arc/MusicGuessr/wiki/Documentation-API
-    nbTries.value+=1
     let cp = comparisonData
 
     // artist
@@ -151,18 +147,26 @@ function updateFields(comparisonData) {
         title.value = cp.name
 
         endGame()
-
-        // redirect to /success route TODO is it the right way to do it ?
-        window.location.href = '/success?title=' + encodeURIComponent(cp.name)
-            + '&artist=' + encodeURIComponent(cp.artist_name)
-            + '&spotify_id=' + encodeURIComponent(cp.spotify_id)
-            + '&nb_tries=' + nbTries.value;
+        redirectToSuccess(cp.name, cp.artist_name, cp.spotify_id)
     }
     else
     {
         // TODO add clue
     }
     saveFieldsInLocalStorage()
+}
+
+async function redirectToSuccess(title, artist, spotify_id) {
+    let urlToRedirect = '/success?title=' + encodeURIComponent(title)
+            + '&artist=' + encodeURIComponent(artist)
+            + '&spotify_id=' + encodeURIComponent(spotify_id);
+
+    const answer = await axios.post('/nb_tries')
+    if (answer.status == 200) {
+        urlToRedirect += '&nb_tries=' + encodeURIComponent(answer.data.nb_tries);
+    }
+
+    window.location.href = urlToRedirect;
 }
 
 function convertMsToMinSec(timeInMs) {
@@ -195,7 +199,6 @@ async function startGame() {
 
 function saveFieldsInLocalStorage()
 {
-    localStorage.setItem('nbTries', nbTries.value)
     localStorage.setItem('title', title.value)
     localStorage.setItem('artist', JSON.stringify(artist.value))
     localStorage.setItem('album', JSON.stringify(album.value))
@@ -205,7 +208,6 @@ function saveFieldsInLocalStorage()
 }
 
 function fetchFromLocalStorage() {
-    nbTries.value = localStorage.getItem('nbTries')
     title.value = localStorage.getItem('title')
 
     genres.value.list = []

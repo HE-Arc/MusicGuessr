@@ -21,8 +21,7 @@ async function getSongs(userInput) {
 
 async function sendProposition(songId) {
     const answer = await axios.post('/comparison_with_answer_song/', {
-        song_id: songId,
-        nb_tries: 5 //TODO Simon: Add nb_try stored in local storage
+        song_id: songId
     })
     emit('send-comparaison', answer.data);
 
