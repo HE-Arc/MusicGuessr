@@ -262,10 +262,6 @@ header {
     }
     margin-bottom: 3.125rem;
 
-    &.container {
-        max-width: 380px;
-    }
-
     .music-container {
         padding: 1.5rem;
 
@@ -273,6 +269,7 @@ header {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 0.75rem;
+            word-wrap: break-word;
         }
 
         .music-artist {
@@ -297,14 +294,33 @@ header {
     }
 }
 
+
+/**************************/
+/*****    STATS       *****/
+/**************************/
+
+.stats-container {
+    .stats{
+        padding: 1.5rem 1.75rem;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        row-gap: 1rem;
+        span:nth-child(even) {
+            text-align: right;
+        }
+    }
+}
+
 /**************************/
 /***** MEDIA QUERIES  *****/
 /**************************/
 @media (min-width: 576px) {
 
-    .container,
-    .small-container {
+    .container {
         max-width: 540px;
+    }
+    .small-container {
+        max-width: 420px;
     }
 }
 
@@ -313,9 +329,6 @@ header {
         max-width: 720px;
     }
 
-    .small-container {
-        max-width: 500px;
-    }
 }
 
 

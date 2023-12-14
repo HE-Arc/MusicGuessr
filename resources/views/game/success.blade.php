@@ -11,9 +11,8 @@
         </div>
     </header>
 
-    <section class="container success-container">
+    <section class="small-container success-container">
         <h2>Bravo, le titre était:</h2>
-        <h3></h3>
         <div class="music-container neon-effect-magenta rounded">
             <h3 class="music-title neon-text-effect-cyan">{{ $title }}</h3>
             <p class="music-artist">{{ $artist }}</p>

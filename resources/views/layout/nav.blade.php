@@ -4,7 +4,7 @@
     <a href="/song_requests/create">Proposer une musique</a>
     @if (Route::has('login'))
             @auth
-                <a href="{{ url('/dashboard') }}">{{ Auth::user()->name }}</a>
+                <a href="{{ url('/dashboard') }}">Profil</a>
 
                 <a href="#" onclick="document.getElementById('logout-form').submit()">Déconnexion</a>
 

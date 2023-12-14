@@ -66,6 +66,9 @@ async function sendProposition(songId) {
     width: 100%;
     padding: 10px 15px 12px 55px;
     border-radius: 40px;
+    &::placeholder {
+        color: white;
+    }
 }
 
 .propositions-list {
