@@ -21,6 +21,7 @@ body {
     top: 0;
     right: 0;
     width: 100%;
+    min-height: 100vh;
     z-index: -2;
     transition: right 0.5s ease-in-out;
 
@@ -52,8 +53,8 @@ h5 {
 }
 
 h2 {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 2.5rem;
+    margin-bottom: 1.25rem;
     font-size: 1.5rem;
 }
 
@@ -97,13 +98,13 @@ h2 {
 }
 
 .rounded {
-    border-radius: 40px;
+    border-radius: 2.5rem;
 }
 
 .btn
 {
-    padding : 10px 20px;
-    border-radius: 40px;
+    padding : 0.75rem 1.25rem;
+    border-radius: 2.5rem;
     outline: 2px solid white;
     outline-offset: -3px;
     transition: all .3s ease-in-out;
@@ -147,15 +148,15 @@ header {
 
         #main-title {
             font-family: $neon-font;
-            font-size: 7.8rem;
+            font-size: 7.75rem;
             text-align: center;
         }
 
         #subtitle {
             font-family: $secondary-neon-font;
-            font-size: 1.7rem;
+            font-size: 1.75rem;
             position: absolute;
-            right: 15px;
+            right: 0;
             bottom: 0;
         }
     }
@@ -183,11 +184,11 @@ header {
     right: 0;
     background-color: $background;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 3.75rem;
     transition: 0.5s ease-in-out;
 
     a {
-        padding: 8px 25px;
+        padding: 0.5rem 1.5rem;
         text-decoration: none;
         font-size: 1.5rem;
         display: block;
@@ -208,8 +209,8 @@ header {
 
 #openNavBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 1.25rem;
+    right: 1.25rem;
     transition: opacity .5s ease-in-out;
 
     &:hover {
@@ -242,12 +243,12 @@ header {
 /**************************/
 
 .vue-container {
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 1.5rem;
+    margin-bottom: 3.125rem;
 
     .instructions {
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
     }
 }
 
@@ -257,21 +258,18 @@ header {
 .success-container {
     .nb-tries
     {
-        margin-top: 15px;
+        margin-top: 1rem;
     }
-    margin-bottom: 50px;
-
-    &.container {
-        max-width: 380px;
-    }
+    margin-bottom: 3.125rem;
 
     .music-container {
-        padding: 20px;
+        padding: 1.5rem;
 
         .music-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 0.75rem;
+            word-wrap: break-word;
         }
 
         .music-artist {
@@ -281,7 +279,7 @@ header {
     }
 
     .spotify-container {
-        border-radius: 17px;
+        border-radius: 1.1rem;
 
         .BackgroundColorContainer_backgroundColorContainer__YZSQ7 {
             background-color: $background;
@@ -292,7 +290,24 @@ header {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30px 0;
+        padding: 1.75rem 0;
+    }
+}
+
+
+/**************************/
+/*****    STATS       *****/
+/**************************/
+
+.stats-container {
+    .stats{
+        padding: 1.5rem 1.75rem;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        row-gap: 1rem;
+        span:nth-child(even) {
+            text-align: right;
+        }
     }
 }
 
@@ -301,9 +316,11 @@ header {
 /**************************/
 @media (min-width: 576px) {
 
-    .container,
-    .small-container {
+    .container {
         max-width: 540px;
+    }
+    .small-container {
+        max-width: 420px;
     }
 }
 
@@ -312,9 +329,6 @@ header {
         max-width: 720px;
     }
 
-    .small-container {
-        max-width: 500px;
-    }
 }
 
 
@@ -358,7 +372,7 @@ header {
 /**************************/
 /******* Component  *******/
 /**************************/
-
+// TODO duplication ?
 .neon-effect-cyan {
     background: none;
     border: 7px solid cyan;

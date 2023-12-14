@@ -338,6 +338,7 @@ watch(data, (proxyObject) => {
 .music-title {
     text-align: center;
     font-size: 1.7rem;
+    word-wrap: break-word;
 }
 
 .criterions {
