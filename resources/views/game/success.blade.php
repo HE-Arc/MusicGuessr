@@ -18,7 +18,9 @@
             <h3 class="music-title neon-text-effect-cyan">{{ $title }}</h3>
             <p class="music-artist">{{ $artist }}</p>
         </div>
+        @isset($nb_tries)
         <p class="nb-tries">Vous l'avez trouvé en {{ $nb_tries }} essais!</p>
+        @endisset
         <h2>Ecouter:</h2>
         <div class="spotify-container neon-effect-magenta">
             <iframe style="border-radius:12px"

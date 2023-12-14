@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="neon-effect-magenta p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
-    <p class="instructions">Connectez-vous avec votre email et mot de passe</p></br>
+    <p class="instructions">Connectez-vous avec votre email et mot de passe</p>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -12,7 +12,7 @@
 
         <!-- Email Address -->
         <div>
-            <p class="instruction">email</p>
+            <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>

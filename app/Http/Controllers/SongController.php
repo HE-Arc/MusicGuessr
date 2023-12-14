@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SongController extends Controller
 {
@@ -23,9 +24,21 @@ class SongController extends Controller
             return response(json_encode(['message' => 'No answer song in session, start the game and retry.']), 449)->header('Content-Type', 'application/json');
         }
 
+        session()->increment('nb_tries');
         $answerSong = session('answerSong');
         $song = Song::findOrFail($request->song_id);
         $answer = $song->getComparisonArray($answerSong);
+
+        if ($answer['isSame'] === true) {
+            $request->session()->forget('answerSong');
+            if (Auth::check()) {
+                $authUser = Auth::user();
+                $authUser->music_streak++;
+                $authUser->songs()->attach($song->id, ['nb_tries' => session('nb_tries')]);
+                $authUser->save();
+            }
+        }
+
         header('Content-Type: application/json');
         http_response_code(200);
 

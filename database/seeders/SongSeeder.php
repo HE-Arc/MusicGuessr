@@ -18,7 +18,11 @@ class SongSeeder extends Seeder
     public function run(): void
     {
         LazyCollection::make(function () {
+            $DEMO = false;
             $file_path = 'seeds/playlist_2010to2022_improved.csv';
+            if ($DEMO) {
+                $file_path = 'seeds/playlist_2010to2022_demo.csv';
+            }
             $handle = fopen(public_path($file_path), 'r');
 
             while (($line = fgetcsv($handle, 4096)) !== false) {
@@ -79,22 +83,24 @@ class SongSeeder extends Seeder
                     $album = Album::firstOrCreate(['name' => $row[$index_album]]);
                     $album_id = $album->id;
 
-                    Song::create([
-                        'year'             => $row[$index_year],
-                        'spotify_id'       => $row[$index_track_id],
-                        'track_name'       => $row[$index_track_name],
-                        'track_popularity' => $row[$index_track_popularity],
-                        'album_id'         => $album_id,
-                        'artist_id'        => $artist_id,
-                        'duration_ms'      => $row[$index_duration_ms],
-                        'loudness'         => $row[$index_loudness],
-                        'danceability'     => $row[$index_danceability],
-                        'energy'           => $row[$index_energy],
-                        'key'              => $row[$index_key],
-                        'tempo'            => $row[$index_tempo],
-                        'acousticness'     => $row[$index_acousticness],
-                        'speechiness'      => $row[$index_speechiness],
-                    ]);
+                    if (!Song::where('spotify_id', $row[$index_track_id])->exists()) {
+                        Song::create([
+                            'year'             => $row[$index_year],
+                            'spotify_id'       => $row[$index_track_id],
+                            'track_name'       => $row[$index_track_name],
+                            'track_popularity' => $row[$index_track_popularity],
+                            'album_id'         => $album_id,
+                            'artist_id'        => $artist_id,
+                            'duration_ms'      => $row[$index_duration_ms],
+                            'loudness'         => $row[$index_loudness],
+                            'danceability'     => $row[$index_danceability],
+                            'energy'           => $row[$index_energy],
+                            'key'              => $row[$index_key],
+                            'tempo'            => $row[$index_tempo],
+                            'acousticness'     => $row[$index_acousticness],
+                            'speechiness'      => $row[$index_speechiness],
+                        ]);
+                    }
                 }
             });
     }
