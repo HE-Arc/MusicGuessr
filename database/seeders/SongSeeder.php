@@ -12,13 +12,19 @@ use Illuminate\Support\LazyCollection;
 
 class SongSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+
         LazyCollection::make(function () {
+            $DEMO = false;
             $file_path = 'seeds/playlist_2010to2022_improved.csv';
+            if ($DEMO) {
+                $file_path = 'seeds/playlist_2010to2022_demo.csv';
+            }
             $handle = fopen(public_path($file_path), 'r');
 
             while (($line = fgetcsv($handle, 4096)) !== false) {
