@@ -16,7 +16,7 @@ body {
 
 #bg-bricks {
     background: url("../../public/img/bricks.png"), $background;
-    background-size: 100%;
+    background-size: 300%;
     position: absolute;
     top: 0;
     right: 0;
@@ -52,6 +52,11 @@ h5 {
     font-size: 1.2rem;
 }
 
+.instructions {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
 h2 {
     margin-top: 2.5rem;
     margin-bottom: 1.25rem;
@@ -60,22 +65,21 @@ h2 {
 
 .neon-text-effect-magenta {
     color: white;
-    -webkit-text-stroke: 1px;
+    -webkit-text-stroke: 0px;
     -webkit-text-stroke-color: $magenta;
-    text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
-
+    text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta;
 }
 
 .neon-text-effect-cyan {
     color: white;
-    -webkit-text-stroke: 1px;
+    -webkit-text-stroke: 0px;
     -webkit-text-stroke-color: $cyan;
     text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 20px $cyan, 0 0 30px $cyan, 0 0 40px $cyan;
 }
 
 .neon-effect-cyan {
     background: none;
-    border: 7px solid cyan;
+    border: 7px solid $cyan;
     outline: 3px solid white;
     outline-offset: -5px;
     box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 10px $cyan, 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan;
@@ -83,10 +87,22 @@ h2 {
 
 .neon-effect-cyan-off {
     background: none;
-    border: 7px solid cyan;
-    outline: 2px solid rgb(0, 0, 0);
+    border: 7px solid $cyan-off;
     outline-offset: -5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+
+    &::placeholder {
+        color: white;
+    }
+
+    &:active {
+        @extend .neon-effect-cyan;
+    }
+
+    &:focus {
+        @extend .neon-effect-cyan;
+    }
 }
 
 .neon-effect-magenta {
@@ -101,32 +117,34 @@ h2 {
     border-radius: 2.5rem;
 }
 
-.btn
-{
-    padding : 0.75rem 1.25rem;
+.btn {
+    padding: 0.75rem 1.25rem;
     border-radius: 2.5rem;
     outline: 2px solid white;
     outline-offset: -3px;
     transition: all .3s ease-in-out;
+    background: none;
 }
-.btn-cyan
-{
+
+.btn-cyan {
     border: 4px solid cyan;
     box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 10px $cyan, 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan, inset 0 0 10px $cyan;
-    &:hover{
+
+    &:hover {
         cursor: pointer;
         background-color: $cyan;
-        color: $cyan-off;
+        color: $background;
     }
 }
-.btn-magenta
-{
+
+.btn-magenta {
     border: 4px solid $magenta;
     box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 10px $magenta, 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta, inset 0 0 10px $magenta;
-    &:hover{
+
+    &:hover {
         cursor: pointer;
         background-color: $magenta;
-        color: $magenta-off;
+        color: $background;
     }
 }
 
@@ -134,6 +152,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 4rem;
 
     .header-container {
         display: flex;
@@ -148,13 +167,14 @@ header {
 
         #main-title {
             font-family: $neon-font;
-            font-size: 7.75rem;
+            font-size: 3rem;
             text-align: center;
         }
 
         #subtitle {
             font-family: $secondary-neon-font;
-            font-size: 1.75rem;
+            font-size: 0.65rem;
+            display: none;
             position: absolute;
             right: 0;
             bottom: 0;
@@ -200,8 +220,8 @@ header {
             -webkit-text-stroke-color: $magenta;
             text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
         }
-        &.closeNavBtn
-        {
+
+        &.closeNavBtn {
             font-size: 2.5rem;
         }
     }
@@ -217,6 +237,7 @@ header {
         cursor: pointer;
     }
 }
+
 .icon-burger {
     div {
         width: 30px;
@@ -245,21 +266,16 @@ header {
 .vue-container {
     margin-top: 1.5rem;
     margin-bottom: 3.125rem;
-
-    .instructions {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
 }
 
 /**************************/
 /*****    SUCCESS     *****/
 /**************************/
 .success-container {
-    .nb-tries
-    {
+    .nb-tries {
         margin-top: 1rem;
     }
+
     margin-bottom: 3.125rem;
 
     .music-container {
@@ -285,8 +301,8 @@ header {
             background-color: $background;
         }
     }
-    .button-container
-    {
+
+    .button-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -300,11 +316,12 @@ header {
 /**************************/
 
 .stats-container {
-    .stats{
+    .stats {
         padding: 1.5rem 1.75rem;
         display: grid;
         grid-template-columns: 3fr 2fr;
         row-gap: 1rem;
+
         span:nth-child(even) {
             text-align: right;
         }
@@ -315,18 +332,72 @@ header {
 /***** MEDIA QUERIES  *****/
 /**************************/
 @media (min-width: 576px) {
+    #bg-bricks {
+        background-size: 200%;
+    }
+    header {
+        margin-top: 0;
+        .title-container {
+            #main-title {
+                font-size: 5rem;
+            }
+
+            #subtitle {
+                display: inline;
+                font-size: 1.125rem;
+            }
+        }
+    }
 
     .container {
         max-width: 540px;
     }
+
     .small-container {
         max-width: 420px;
+    }
+
+    .neon-text-effect-magenta {
+        -webkit-text-stroke: 0px;
+        -webkit-text-stroke-color: $magenta;
+        text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta;
+    }
+
+    .neon-text-effect-cyan {
+        -webkit-text-stroke: 0px;
+        -webkit-text-stroke-color: $cyan;
+        text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 20px $cyan, 0 0 30px $cyan, 0 0 40px $cyan;
     }
 }
 
 @media (min-width: 768px) {
+    #bg-bricks {
+        background-size: 100%;
+    }
+    header .title-container {
+        #main-title {
+            font-size: 7.75rem;
+        }
+
+        #subtitle {
+            font-size: 1.75rem;
+        }
+    }
+
     .container {
         max-width: 720px;
+    }
+
+    .neon-text-effect-magenta {
+        -webkit-text-stroke: 1px;
+        -webkit-text-stroke-color: $magenta;
+        text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $magenta, 0 0 20px $magenta, 0 0 30px $magenta, 0 0 40px $magenta, 0 0 70px $magenta, 0 0 80px $magenta, 0 0 100px $magenta, 0 0 150px $magenta;
+    }
+
+    .neon-text-effect-cyan {
+        -webkit-text-stroke: 1px;
+        -webkit-text-stroke-color: $cyan;
+        text-shadow: 0 .4rem 3px rgba(0, 0, 0, .5), 0 0 10px $cyan, 0 0 20px $cyan, 0 0 30px $cyan, 0 0 40px $cyan;
     }
 
 }
@@ -372,48 +443,6 @@ header {
 /**************************/
 /******* Component  *******/
 /**************************/
-// TODO duplication ?
-.neon-effect-cyan {
-    background: none;
-    border: 7px solid cyan;
-    outline: 3px solid white;
-    outline-offset: -5px;
-    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px cyan, 0 0 10px cyan, 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan, inset 0 0 10px cyan;
-}
-
-.neon-effect-magenta {
-    background: none;
-    border: 7px solid magenta;
-    outline: 3px solid white;
-    outline-offset: -5px;
-    box-shadow: 0 .3rem 2px rgba(0, 0, 0, .5), 0 0 10px magenta, 0 0 10px magenta, 0 0 10px magenta, inset 0 0 10px magenta, inset 0 0 10px magenta, inset 0 0 10px magenta;
-}
-
-.rounded-input {
-    border-radius: 20px;
-    padding: 8px 12px;
-    background-color: transparent;
-    color: #ffffff;
-
-    // Style par défaut
-    @extend .neon-effect-cyan-off;
-
-    // Style pour l'état :active
-    &:active {
-        @extend .neon-effect-cyan;
-    }
-
-    // Style pour l'état :focus
-    &:focus {
-        @extend .neon-effect-cyan;
-    }
-
-    // Style pour l'état :hover
-    &:hover {
-        @extend .neon-effect-cyan;
-    }
-}
-
 
 .tamerecestautrechose {
     position: relative;
@@ -423,7 +452,8 @@ header {
         position: relative;
         z-index: 1;
         border: 7px solid cyan;
-        border-radius: 20px; /* Ajustez la valeur selon vos préférences */
+        border-radius: 20px;
+        /* Ajustez la valeur selon vos préférences */
         padding: 8px 12px;
         background: none;
         color: #4a5568;
@@ -437,4 +467,3 @@ header {
         }
     }
 }
-

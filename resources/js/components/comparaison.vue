@@ -342,7 +342,8 @@ watch(data, (proxyObject) => {
 }
 
 .criterions {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
@@ -362,5 +363,17 @@ watch(data, (proxyObject) => {
     display: flex;
     justify-content: center;
     margin-top: 40px;
+}
+@media (min-width: 576px) {
+    .criterions
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 768px) {
+    .criterions
+    {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 </style>
