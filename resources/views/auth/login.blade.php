@@ -2,7 +2,7 @@
 @extends('layout.app')
 @section('content')
 
-<div class="neon-effect-magenta p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
+<div class="p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
     <p class="instructions">Connectez-vous avec votre email et mot de passe</p>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -19,7 +19,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('Mot de passe')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -33,19 +33,19 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-white-600">{{ __('Se souvenir de moi') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="underline text-sm dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('password.request') }}">
+                    {{ __('Mot de passe oublié?') }}
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+            <x-primary-button class="ms-3 btn btn-magenta">
+                {{ __('Se connecter') }}
             </x-primary-button>
         </div>
     </form>

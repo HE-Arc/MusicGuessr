@@ -5,8 +5,8 @@
     <header>
         <div class="container header-container">
             <div class="title-container">
-                <h1 id="main-title" class="neon-text-effect-magenta">Success</h1>
-                <span id="subtitle" class="neon-text-effect-cyan">Well Done!</span>
+                <h1 id="main-title" class="neon-text-effect-magenta">Succès</h1>
+                <span id="subtitle" class="neon-text-effect-cyan">Bien joué!</span>
             </div>
         </div>
     </header>
