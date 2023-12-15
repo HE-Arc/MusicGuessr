@@ -8,7 +8,7 @@
     <a href="{{ route('song_requests.create') }}">
         <button class="requested-song-form-container" type="button">Proposer une autre musique</button>
     </a>
-    <!-- temporary, until navBar -->
+
     <a href="/">Retour au jeu</a>
 
 </div>

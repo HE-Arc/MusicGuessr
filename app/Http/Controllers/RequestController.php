@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class RequestController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
+     * Show the form for proposing a new music.
      */
     public function create()
     {
-        return view('request.create');
+        return view('request.proposal');
     }
 
     /**
@@ -20,7 +20,7 @@ class RequestController extends Controller
      */
     public function store(Request $request)
     {
-        $songRequest = SongRequest::create($request->validated()->only(['song_name', 'artist_name']));
+        $songRequest = SongRequest::create($request->only(['song_name', 'artist_name']));
 
         return view('request.confirmation')->with(['title' => $songRequest->song_name, 'author' => $songRequest->artist_name]);
     }
