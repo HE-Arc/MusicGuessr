@@ -10,5 +10,4 @@
     </a>
 </section>
 
-@vite(['resources/js/pages/game.js'])
 @endsection
