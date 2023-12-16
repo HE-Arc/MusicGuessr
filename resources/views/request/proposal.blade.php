@@ -2,9 +2,9 @@
 @extends('layout.app')
 @section('content')
 
-<div class="neon-effect-magenta p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
-    <p class="instructions">Proposer une musique :</p>
-    
+<div class="p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
+    <p class="instructions">Proposer une musique à ajouter à la liste :</p>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -26,8 +26,9 @@
             <x-input-error :messages="$errors->get('artist_name')" class="mt-2" />
             <span id="artistErrorMessage" class="text-red-500"></span>
         </div>
-
-        <button type="submit" class="mt-4">Proposer</button>
+        <div class="flex items-center justify-end">
+            <button type="submit" class="mt-4 btn btn-magenta">Proposer</button>
+        </div>
     </form>
 </div>
 

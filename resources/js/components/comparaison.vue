@@ -170,8 +170,6 @@ async function addClueToTitle() {
         index: index
     })
 
-    console.log(answer)
-
     if (answer.status == 200) {
         title.value = title.value.substring(0, index) + answer.data.hint + title.value.substring(index + 1)
     }
@@ -215,7 +213,6 @@ async function startGame() {
     }
     localStorage.setItem('nbGenre', answer.data.nb_artist_genre)
 
-    console.log(answer)
     saveFieldsInLocalStorage()
 }
 
@@ -258,7 +255,7 @@ function newMusic()
 
 async function isGameStarted() {
     const answer = await axios.post('/has_game_started')
-    console.log(answer)
+
     if (!answer.data.is_started) {
         startGame()
         return false

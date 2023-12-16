@@ -408,9 +408,11 @@ header {
 /**************************/
 
 .requested-song-form-container {
-    width: 100%;
     text-align: center;
-    padding: 2.5vw;
+    margin-top: 1rem;
+    .btn{
+        margin-top: 1rem;
+    }
 }
 
 .requested-song-form-container label {
