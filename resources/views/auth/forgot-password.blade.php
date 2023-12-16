@@ -4,7 +4,8 @@
 
 <div class="neon-effect-magenta p-6 rounded-xl shadow-md max-w-lg mx-auto my-auto">
     <p class="instruction">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+
+        {{ __('Mot de passe oublié? Pas de problème, notre équipe de dev fait tous son possible pour mettre en place un système de mail fonctionnel.') }}
     </p>
 
     <!-- Session Status -->
@@ -21,9 +22,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+            <p>
+                {{ __('A venir prochainement') }}
+            </p>
         </div>
     </form>
 </div>
