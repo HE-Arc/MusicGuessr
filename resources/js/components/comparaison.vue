@@ -43,6 +43,7 @@ const time = ref({
 });
 
 function resetFields() {
+    emit('clear-history');
     title.value = ''
 
     artist.value.label = 'Artist ?'

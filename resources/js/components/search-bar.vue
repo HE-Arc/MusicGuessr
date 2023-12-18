@@ -44,7 +44,8 @@ async function sendProposition(songId) {
             v-on:keyup.enter="songs.length > 0 ? sendProposition(songs[focusIndex].id) : null"
             v-on:keydown.arrow-up="focusIndex > 0 ? focusIndex-- : null"
             v-on:keydown.arrow-down="focusIndex < songs.length - 1 ? focusIndex++ : null" class="neon-effect-cyan-off"
-            type="text" @focusout="songs = [], focusIndex = -1" placeholder="Taper le nom d'une musique">
+            v-on:keydown.escape="songs = []"
+            type="text" @focusout="focusIndex = -1" placeholder="Taper le nom d'une musique">
         <ul class="propositions-list">
             <li v-for="song, key in songs" @click="sendProposition(song.id)"
             @mouseover="focusIndex = key"
