@@ -44,6 +44,7 @@ const time = ref({
 
 function resetFields() {
     emit('clear-history');
+    indexAlreadyHinted.value = []
     title.value = ''
 
     artist.value.label = 'Artist ?'
@@ -153,8 +154,10 @@ function updateFields(comparisonData) {
     }
     else
     {
-        // add a clue
-        addClueToTitle()
+        // add a clue if the title is not guessed yet
+        if (indexAlreadyHinted.value.length < title.value.length) {
+            addClueToTitle()
+        }
     }
 }
 
