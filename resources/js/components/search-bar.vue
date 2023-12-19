@@ -16,6 +16,7 @@ async function getSongs(userInput) {
     const answer = await axios.get('/song_beginning_with/' + userInput)
     if (answer.data.length > 0) {
         songs.value = answer.data
+        focusIndex.value = 0
     } else {
         songs.value = []
         focusIndex.value = -1
